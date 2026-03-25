@@ -2,7 +2,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './Components/Nav';
 // import WriterIndex from './Pages/Writers/Index.jsx';
 // import StoriesIndex from './Pages/Stories/Index.jsx';
-// import HomeIndex from './Pages/Home/Index.jsx';
+import HomeIndex from './Pages/Home/Index.jsx';
 // import RegisterIndex from './Pages/Users/Index.jsx';
 // import Login from './Pages/Auth/Login.jsx';
 // import AdminIndex from './Pages/Admin/Index.jsx';
@@ -29,11 +29,11 @@ export default function App() {
         <Nav/>
 
       {/* {!hideNav && <Nav />} */}
-{/* 
+
       <Routes>
         <Route path="/" element={<HomeIndex />} />
         <Route path="/apie" element={<HomeIndex />} />
-        <Route path="/istorijos" element={<StoriesIndex />} />
+        {/* <Route path="/istorijos" element={<StoriesIndex />} />
         <Route path="/mano-istorijos" element={<WriterIndex />} />
         <Route path="/admin/*" element={<AdminIndex />} />
         <Route path="/login" element={<Login />} />
@@ -44,10 +44,10 @@ export default function App() {
         <Route path="/error/401" element={<Page401 />} />
         <Route path="/error/503" element={<Page503 />} />
 
-        <Route path="*" element={<Page404 />} /> 
+        <Route path="*" element={<Page404 />} />  */}
 
 
-      </Routes> */}
+      </Routes> 
     </div>
   );
 }

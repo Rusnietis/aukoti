@@ -1,0 +1,234 @@
+.homepage {
+  background: #020617;
+  color: white;
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+.container {
+  width: min(1240px, 90%);
+  margin: auto;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  &__blur {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: .35;
+    animation: float 10s ease-in-out infinite;
+
+    &--left {
+      width: 350px;
+      height: 350px;
+      background: #f59e0b;
+      top: 10%;
+      left: 10%;
+    }
+
+    &--right {
+      width: 350px;
+      height: 350px;
+      background: #ec4899;
+      bottom: 10%;
+      right: 10%;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    max-width: 920px;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.05);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1.05;
+
+    span {
+      background: linear-gradient(90deg,#f59e0b,#fb7185);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  p {
+    max-width: 700px;
+    margin: 2rem auto;
+    line-height: 1.8;
+    color: rgba(255,255,255,.72);
+    font-size: 1.2rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+  }
+}
+
+/* BUTTONS */
+.btn {
+  padding: 14px 28px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: .35s ease;
+
+  &--primary {
+    background: linear-gradient(90deg,#f59e0b,#fb7185);
+    color: white;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(245,158,11,.35);
+    }
+  }
+
+  &--secondary {
+    border: 1px solid rgba(255,255,255,.12);
+    color: white;
+  }
+}
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 1.5rem;
+
+  &__card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    backdrop-filter: blur(18px);
+    padding: 2rem;
+    transition: .35s;
+
+    &:hover {
+      transform: translateY(-8px);
+    }
+
+    h3 {
+      color: #f59e0b;
+      font-size: 2rem;
+    }
+  }
+}
+
+/* FEATURES */
+.features,
+.stories {
+  padding: 7rem 0;
+
+  h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 3rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2rem;
+  }
+}
+
+.card,
+.story-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  padding: 2rem;
+  backdrop-filter: blur(18px);
+  transition: .35s;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+}
+
+/* STORIES */
+.story-card {
+  &__progress {
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg,#f59e0b,#fb7185);
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* CTA */
+.cta {
+  text-align: center;
+  padding: 8rem 2rem;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: rgba(255,255,255,.72);
+    margin-bottom: 2rem;
+  }
+}
+
+/* FLOAT */
+@keyframes float {
+  0%,100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.7rem;
+  }
+
+  .features h2,
+  .stories h2,
+  .cta h2 {
+    font-size: 2rem;
+  }
+}
+
+/* FOOTER */
+.footer {
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
