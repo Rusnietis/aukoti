@@ -1,0 +1,1 @@
+Naujas projektas, skirtas aukoti ir prisidėti prie gerų iniciativų.
