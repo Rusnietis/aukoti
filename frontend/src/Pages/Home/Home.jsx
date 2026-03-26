@@ -11,22 +11,16 @@ export default function Home() {
   const features = [
     {
       title: "Skaidrumas",
-      text: "Visas paramos procesas matomas aiškiai ir realiu laiku.",
+      text: "Visas paramos procesas aiškus ir matomas realiu laiku.",
     },
     {
       title: "Greitis",
-      text: "Pagalba pasiekia tikslą greitai ir saugiai.",
+      text: "Pagalba pasiekia žmones ten, kur jos labiausiai reikia.",
     },
     {
       title: "Pasitikėjimas",
-      text: "Bendruomenė kuria realų poveikį kasdien.",
+      text: "Bendruomenė kuria realų pokytį kiekvieną dieną.",
     },
-  ];
-
-  const stories = [
-    { title: "Pagalba šeimai", progress: "78%" },
-    { title: "Gyvūnų globa", progress: "64%" },
-    { title: "Gamtos projektas", progress: "91%" },
   ];
 
   return (
@@ -35,18 +29,17 @@ export default function Home() {
       <section className="hero">
         <div className="hero__blur hero__blur--left"></div>
         <div className="hero__blur hero__blur--right"></div>
-        <div className="hero__grid"></div>
 
         <div className="hero__content">
           <span className="hero__badge">Moderni paramos platforma</span>
 
           <h1>
-            Kuriame <span>ateities paramą</span> kartu
+            Kartu kuriame <span>geresnį rytojų</span>
           </h1>
 
           <p>
-            Skaidri, greita ir moderni sistema, jungianti žmones, kuriems rūpi
-            tikras poveikis.
+            Prisidėk prie istorijų, kurios keičia gyvenimus. Skaidri ir moderni
+            sistema padeda pagalbai pasiekti tikslą greitai.
           </p>
 
           <div className="hero__actions">
@@ -54,7 +47,7 @@ export default function Home() {
               Prisidėti dabar
             </Link>
 
-            <Link to="/apie-mus" className="btn btn--secondary">
+            <Link to="/apie" className="btn btn--secondary">
               Sužinoti daugiau
             </Link>
           </div>
@@ -72,7 +65,7 @@ export default function Home() {
 
       {/* FEATURES */}
       <section className="features container">
-        <h2>Kodėl ši platforma kitokia</h2>
+        <h2>Kodėl žmonės renkasi mus</h2>
 
         <div className="features__grid">
           {features.map((item, index) => (
@@ -84,34 +77,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* STORIES */}
-      <section className="stories container">
-        <h2>Naujausios istorijos</h2>
-
-        <div className="stories__grid">
-          {stories.map((story, index) => (
-            <article className="story-card" key={index}>
-              <div className="story-card__progress"></div>
-              <h3>{story.title}</h3>
-              <p>Surinkta {story.progress} tikslo</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="cta">
         <h2>Prisijunk prie pokyčio šiandien</h2>
-        <p>Kiekviena parama tampa realiu rezultatu.</p>
+        <p>Kiekviena auka tampa realia pagalba.</p>
 
         <Link to="/istorijos" className="btn btn--primary">
           Pradėti dabar
         </Link>
       </section>
-       {/* FOOTER */}
+
+        {/* FOOTER */}
       <footer className="footer">
         <p>© {new Date().getFullYear()} Padėkime Kartu</p>
       </footer>
+  
     </main>
   );
 }
+
+  
