@@ -284,7 +284,9 @@ app.get('/writers', (req, res) => {
       res.status(500);
     } else {
       res.json(results);
+       //console.log('results', results)
     }
+    
   })
 }
 )
