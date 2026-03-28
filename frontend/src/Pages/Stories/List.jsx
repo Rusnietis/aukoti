@@ -165,7 +165,7 @@ export default function List() {
                     </div>
                   </div>
 
-                  <div className="donors-list">
+                  {/* <div className="donors-list">
                     <div className="one" style={{ fontSize: '18px' }}>Aukotojų sąrašas</div>
                     <hr />
                     {donors
@@ -175,7 +175,7 @@ export default function List() {
                           <li>{donor.name} – {donor.amount} €</li>
                         </div>
                       ))}
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                 <div className="thanks-message">

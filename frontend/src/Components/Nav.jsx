@@ -24,11 +24,15 @@ export default function Nav() {
         </nav>
 
         <div className="navbar__auth">
-          <NavLink to="/login" className="btn btn--secondary">
+          <NavLink to="/login" className="button-18">
             Login
           </NavLink>
 
-          <NavLink to="/register" className="btn btn--primary">
+          <NavLink 
+          to="/register" 
+          className="button-18 green"
+          // style={{ cursor: "pointer", backgroundColor: "green", hover: 'grey' }}
+          >
             Register
           </NavLink>
         </div>

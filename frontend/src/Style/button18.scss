@@ -1,3 +1,6 @@
+@use './variables' as *;
+
+
 /* CSS */
 .button-18 {
     align-items: center;
@@ -45,66 +48,66 @@
         
     }
 
-    // &.black {
-    //     background-color: $black;
-    //     box-shadow: transparentize($black, 0.85) 0 4px 9px;
+    &.black {
+        background-color: $black;
+        box-shadow: transparentize($black, 0.85) 0 4px 9px;
 
-    //     &:hover {
-    //         background-color: darken($black, 20);
-    //         box-shadow: transparentize(darken($black, 20), 0.8) 0 6px 12px;
-    //     }
-    // }
+        &:hover {
+            background-color: darken($black, 20);
+            box-shadow: transparentize(darken($black, 20), 0.8) 0 6px 12px;
+        }
+    }
 
-    // &.red {
-    //     background-color: $red;
-    //     box-shadow: transparentize($red, 0.85) 0 4px 9px;
+    &.red {
+        background-color: $red;
+        box-shadow: transparentize($red, 0.85) 0 4px 9px;
 
-    //     &:hover {
-    //         background-color: darken($red, 20);
-    //         box-shadow: transparentize(darken($red, 20), 0.8) 0 6px 12px;
-    //     }
-    // }
+        &:hover {
+            background-color: darken($red, 20);
+            box-shadow: transparentize(darken($red, 20), 0.8) 0 6px 12px;
+        }
+    }
 
-    // &.green {
-    //     background-color: $green;
-    //     box-shadow: transparentize($green, 0.85) 0 4px 9px;
+    &.green {
+        background-color: $green;
+        box-shadow: transparentize($green, 0.85) 0 4px 9px;
 
-    //     &:hover {
-    //         background-color: darken($green, 20);
-    //         box-shadow: transparentize(darken($green, 20), 0.8) 0 6px 12px;
-    //     }
-    // }
+        &:hover {
+            background-color: darken($green, 20);
+            box-shadow: transparentize(darken($green, 20), 0.8) 0 6px 12px;
+        }
+    }
 
-    // &.white {
-    //     background-color: $white;
-    //     box-shadow: transparentize($white, 0.85) 0 4px 9px;
-    //     color: $black;
+    &.white {
+        background-color: $white;
+        box-shadow: transparentize($white, 0.85) 0 4px 9px;
+        color: $black;
 
-    //     &:hover {
-    //         background-color: darken($white, 20);
-    //         box-shadow: transparentize(darken($white, 20), 0.8) 0 6px 12px;
-    //     }
-    // }
+        &:hover {
+            background-color: darken($white, 20);
+            box-shadow: transparentize(darken($white, 20), 0.8) 0 6px 12px;
+        }
+    }
 
-    // &.yellow {
-    //     background-color: $yellow;
-    //     box-shadow: transparentize($yellow, 0.85) 0 4px 9px;
+    &.yellow {
+        background-color: $yellow;
+        box-shadow: transparentize($yellow, 0.85) 0 4px 9px;
 
-    //     &:hover {
-    //         background-color: darken($yellow, 20);
-    //         box-shadow: transparentize(darken($yellow, 20), 0.8) 0 6px 12px;
-    //     }
-    // }
+        &:hover {
+            background-color: darken($yellow, 20);
+            box-shadow: transparentize(darken($yellow, 20), 0.8) 0 6px 12px;
+        }
+    }
 
-    // &.orange {
-    //     background-color: $orange;
-    //     box-shadow: transparentize($orange, 0.85) 0 4px 9px;
+    &.orange {
+        background-color: $orange;
+        box-shadow: transparentize($orange, 0.85) 0 4px 9px;
 
-    //     &:hover {
-    //         background-color: darken($orange, 20);
-    //         box-shadow: transparentize(darken($orange, 20), 0.8) 0 6px 12px;
-    //     }
-    // }
+        &:hover {
+            background-color: darken($orange, 20);
+            box-shadow: transparentize(darken($orange, 20), 0.8) 0 6px 12px;
+        }
+    }
 
 
 

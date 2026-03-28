@@ -1,6 +1,7 @@
 @use "./navbar.scss";
 @use "./fonts.scss";
 @use "./home.scss";
+@use "./variables.scss" as *;
 
 :root {
   --bg: #f5f7fb;
