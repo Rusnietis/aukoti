@@ -5,7 +5,7 @@ import { SERVER_URL } from '../Constants/main';
 import * as c from '../Actions/writers';
 import * as a from '../Actions/stories';
 //import { MessagesContext } from '../Contexts/Messages';
-import { ToastContext } from '../Contexts/Toast';
+//import { ToastContext } from '../Contexts/Toast';
 
 
 //patikrinta
@@ -17,7 +17,7 @@ export default function useWriters(dispatchWriters, dispatchStories) {
     // const { setUser } = useContext(Auth);
     //const { addMessage } = useContext(MessagesContext);
     // const { setErrorPageType } = useContext(Router);
-    const { showToast } = useContext(ToastContext)
+    //const { showToast } = useContext(ToastContext)
 
     useEffect(_ => {
 
@@ -55,7 +55,7 @@ export default function useWriters(dispatchWriters, dispatchStories) {
                         collected: res.data.collected
                     }));
                     //addMessage(res.data.message)
-                    showToast(res.data.message);
+                    //showToast(res.data.message);
                 })
                 .catch(err => {
                     dispatchWriters(c.storeWriterAsUndo({ ...storeWriter, id: uuid }));

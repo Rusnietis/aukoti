@@ -6,9 +6,7 @@ const mysql = require('mysql');
 const fs = require('fs');
 const md5 = require('md5');
 const { v4: uuidv4 } = require('uuid');
-const { error } = require('console');
-const { inflateRawSync } = require('zlib');
-const { SERVER_URL } = require('../frontend/src/Constants/main');
+
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -87,53 +85,53 @@ const writeImage = imageBase64 => {
 //   }
 // }
 
-const checkUserIsAuthorized = (user, res, roles) => {
-  if (user && roles.includes(user.role)) {
-    return true;
-  } else if (user && roles.includes('self:' + user.id)) {
-    return true;
-  } else if (user) {
-    res.status(401).json({
-      message: 'Not authorized',
-      type: 'role'
-    });
-    return false; // <--- pridėk šitą
-  } else {
-    res.status(401).json({
-      message: 'Not logged in',
-      type: 'login'
-    });
-    return false; // <--- ir šitą
-  }
-}
+// const checkUserIsAuthorized = (user, res, roles) => {
+//   if (user && roles.includes(user.role)) {
+//     return true;
+//   } else if (user && roles.includes('self:' + user.id)) {
+//     return true;
+//   } else if (user) {
+//     res.status(401).json({
+//       message: 'Not authorized',
+//       type: 'role'
+//     });
+//     return false; // <--- pridėk šitą
+//   } else {
+//     res.status(401).json({
+//       message: 'Not logged in',
+//       type: 'login'
+//     });
+//     return false; // <--- ir šitą
+//   }
+// }
 
 
-const doAuth = (req, res, next) => {
-  const token = req.cookies.donateSession || '';
+// const doAuth = (req, res, next) => {
+//   const token = req.cookies.donateSession || '';
 
-  //console.log('token', token)
-  if (token === '') {
-    return next();
-  }
-  const sql = `
-    SELECT name, id, role
-    FROM users
-    WHERE session = ?
-  `;
-  connection.query(sql, [token], (err, results) => {
-    if (err) {
-      res.status(500).json({ message: 'Server error On Auth' });
-    } else {
-      if (results.length > 0) {
-        const user = results[0];
-        req.user = user;
-      }
-    }
-    return next();
-  });
-};
+//   //console.log('token', token)
+//   if (token === '') {
+//     return next();
+//   }
+//   const sql = `
+//     SELECT name, id, role
+//     FROM users
+//     WHERE session = ?
+//   `;
+//   connection.query(sql, [token], (err, results) => {
+//     if (err) {
+//       res.status(500).json({ message: 'Server error On Auth' });
+//     } else {
+//       if (results.length > 0) {
+//         const user = results[0];
+//         req.user = user;
+//       }
+//     }
+//     return next();
+//   });
+// };
 
-app.use(doAuth);
+// app.use(doAuth);
 
 // // 2️⃣ Autentifikacijos middleware (kad nustatytų req.user)
 // app.use((req, res, next) => {
@@ -284,7 +282,7 @@ app.get('/writers', (req, res) => {
       res.status(500);
     } else {
       res.json(results);
-       //console.log('results', results)
+      
     }
     
   })
@@ -340,6 +338,7 @@ app.get("/stories", (req, res) => {
     }
 
     res.json(results);
+     console.log('results', results)
   });
 });
 
