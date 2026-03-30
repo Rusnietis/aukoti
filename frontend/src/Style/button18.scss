@@ -1,131 +1,136 @@
-@use './variables' as *;
 
+@use "sass:color";
+@use "./variables" as *;
 
-/* CSS */
 .button-18 {
-    align-items: center;
-    background-color: #0A66C2;
-    border: 0;
-    border-radius: 100px;
-    box-sizing: border-box;
-    color: #ffffff;
-    cursor: pointer;
-    display: inline-flex;
-    font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    justify-content: center;
-    line-height: 20px;
-    max-width: 480px;
-    min-height: 40px;
-    min-width: 0px;
-    overflow: hidden;
-    padding: 0px;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: center;
-    touch-action: manipulation;
-    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-    user-select: none;
-    -webkit-user-select: none;
-    vertical-align: middle;
+  align-items: center;
+  background-color: #0A66C2;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
+    "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande",
+    Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  padding: 0 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition:
+    background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.167s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: gray;
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+
+  &.black {
+    background-color: $black;
+    box-shadow: color.adjust($black, $alpha: -0.85) 0 4px 9px;
 
     &:hover {
-        background-color:gray, 20;
-        opacity: 1;
-        transform: translateY(0);
-        transition-duration: .35s;
+      background-color: color.adjust($black, $lightness: -20%);
+      box-shadow: color.adjust(
+        color.adjust($black, $lightness: -20%),
+        $alpha: -0.8
+      ) 0 6px 12px;
     }
+  }
 
-    &:active {
-        transform: translateY(2px);
-        transition-duration: .35s;
-    }
+  &.red {
+    background-color: $red;
+    box-shadow: color.adjust($red, $alpha: -0.85) 0 4px 9px;
 
     &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
-
-        
+      background-color: color.adjust($red, $lightness: -20%);
+      box-shadow: color.adjust(
+        color.adjust($red, $lightness: -20%),
+        $alpha: -0.8
+      ) 0 6px 12px;
     }
+  }
 
-    &.black {
-        background-color: $black;
-        box-shadow: transparentize($black, 0.85) 0 4px 9px;
+  &.green {
+    background-color: $green;
+    box-shadow: color.adjust($green, $alpha: -0.85) 0 4px 9px;
 
-        &:hover {
-            background-color: darken($black, 20);
-            box-shadow: transparentize(darken($black, 20), 0.8) 0 6px 12px;
-        }
+    &:hover {
+      background-color: color.adjust($green, $lightness: -20%);
+      box-shadow: color.adjust(
+        color.adjust($green, $lightness: -20%),
+        $alpha: -0.8
+      ) 0 6px 12px;
     }
+  }
 
-    &.red {
-        background-color: $red;
-        box-shadow: transparentize($red, 0.85) 0 4px 9px;
+  &.white {
+    background-color: $white;
+    color: $black;
+    box-shadow: color.adjust($white, $alpha: -0.85) 0 4px 9px;
 
-        &:hover {
-            background-color: darken($red, 20);
-            box-shadow: transparentize(darken($red, 20), 0.8) 0 6px 12px;
-        }
+    &:hover {
+      background-color: color.adjust($white, $lightness: -20%);
+      box-shadow: color.adjust(
+        color.adjust($white, $lightness: -20%),
+        $alpha: -0.8
+      ) 0 6px 12px;
     }
+  }
 
-    &.green {
-        background-color: $green;
-        box-shadow: transparentize($green, 0.85) 0 4px 9px;
+  &.yellow {
+    background-color: $yellow;
+    box-shadow: color.adjust($yellow, $alpha: -0.85) 0 4px 9px;
 
-        &:hover {
-            background-color: darken($green, 20);
-            box-shadow: transparentize(darken($green, 20), 0.8) 0 6px 12px;
-        }
+    &:hover {
+      background-color: color.adjust($yellow, $lightness: -20%);
+      box-shadow: color.adjust(
+        color.adjust($yellow, $lightness: -20%),
+        $alpha: -0.8
+      ) 0 6px 12px;
     }
+  }
 
-    &.white {
-        background-color: $white;
-        box-shadow: transparentize($white, 0.85) 0 4px 9px;
-        color: $black;
+  &.orange {
+    background-color: $orange;
+    box-shadow: color.adjust($orange, $alpha: -0.85) 0 4px 9px;
 
-        &:hover {
-            background-color: darken($white, 20);
-            box-shadow: transparentize(darken($white, 20), 0.8) 0 6px 12px;
-        }
+    &:hover {
+      background-color: color.adjust($orange, $lightness: -20%);
+      box-shadow: color.adjust(
+        color.adjust($orange, $lightness: -20%),
+        $alpha: -0.8
+      ) 0 6px 12px;
     }
+  }
 
-    &.yellow {
-        background-color: $yellow;
-        box-shadow: transparentize($yellow, 0.85) 0 4px 9px;
-
-        &:hover {
-            background-color: darken($yellow, 20);
-            box-shadow: transparentize(darken($yellow, 20), 0.8) 0 6px 12px;
-        }
-    }
-
-    &.orange {
-        background-color: $orange;
-        box-shadow: transparentize($orange, 0.85) 0 4px 9px;
-
-        &:hover {
-            background-color: darken($orange, 20);
-            box-shadow: transparentize(darken($orange, 20), 0.8) 0 6px 12px;
-        }
-    }
-
-
-
-}
-
-.button-18:hover,
-.button-18:focus {
+  &:focus {
     background-color: #16437E;
     color: #ffffff;
-}
+  }
 
-.button-18:active {
-    background: #09223b;
-    color: rgb(255, 255, 255, .7);
-}
-
-.button-18:disabled {
+  &:disabled {
     cursor: not-allowed;
-    background: rgba(0, 0, 0, .08);
-    color: rgba(0, 0, 0, .3);
+    background: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.3);
+  }
 }
