@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { Stories } from "../../Contexts/Stories";
-//import { Donors } from '../../Contexts/Donors';
+import { Donors } from '../../Contexts/Donors';
 import { SERVER_URL } from "../../Constants/main";
 import * as s from '../../Actions/stories';
 import '../../Style/StoriesList.scss';
@@ -20,7 +20,7 @@ export default function List() {
   const [inputs, setInputs] = useState(defaultInputs);
 
   const { stories, dispatchStories } = useContext(Stories);
-  //const { donors, setStoreDonor } = useContext(Donors);
+  const { donors, setStoreDonor } = useContext(Donors);
 
   //console.log('Donors', donors)
   console.log('Stories', stories)
@@ -165,7 +165,7 @@ export default function List() {
                     </div>
                   </div>
 
-                  {/* <div className="donors-list">
+                  <div className="donors-list">
                     <div className="one" style={{ fontSize: '18px' }}>Aukotojų sąrašas</div>
                     <hr />
                     {donors
@@ -175,7 +175,7 @@ export default function List() {
                           <li>{donor.name} – {donor.amount} €</li>
                         </div>
                       ))}
-                  </div> */}
+                  </div>
                 </div>
               ) : (
                 <div className="thanks-message">

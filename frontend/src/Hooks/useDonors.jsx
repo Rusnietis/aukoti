@@ -1,0 +1,72 @@
+import { useContext, useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import { SERVER_URL } from '../Constants/main';
+import * as c from '../Actions/donors';
+import * as s from '../Actions/stories';
+// import { MessagesContext } from '../Contexts/Messages';
+import { ToastContext } from '../Contexts/Toast';
+
+
+//patikrinta
+export default function useDonors(dispatchDonors, dispatchStories) {
+
+    const [storeDonor, setStoreDonor] = useState(null);
+    const [updateDonor, setUpdateDonor] = useState(null);
+    const [destroyDonor, setDestroyDonor] = useState(null);
+    // const { setUser } = useContext(Auth);
+    // const { addMessage } = useContext(MessagesContext);
+    const { showToast } = useContext(ToastContext)
+    // const { setErrorPageType } = useContext(Router);
+    const sentRef = useRef(false);
+
+    useEffect(_ => {
+
+        axios.get(`${SERVER_URL}/donors`)
+            .then(res => {
+                console.log(res.data)
+                dispatchDonors(c.getDonors(res.data));
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [dispatchDonors]);
+
+    useEffect(_ => {
+        if (null !== storeDonor) {
+            const uuid = uuidv4();
+            console.log("Siunčiam duomenis į backend:", { ...storeDonor, id: uuid });
+            dispatchDonors(c.storeDonorAsTemp({ ...storeDonor, id: uuid }));
+            axios.post(`${SERVER_URL}/donors`, { ...storeDonor, id: uuid })
+                .then(res => {
+                    console.log("POST OK:", res.data);
+                    console.log('Got message from backend:', res.data.message);
+                    setStoreDonor(null)
+                    dispatchDonors(c.storeDonorAsReal(res.data));
+                    //dispatchStories(s.updateCollected(res.data.story_id, res.data.amount));
+
+                    // addMessage({...res.data.message, id: uuidv4()})
+                    showToast({...res.data.message, id: uuidv4()})
+                })
+                .catch(err => {
+                    dispatchDonors(c.storeDonorAsUndo({ ...storeDonor, id: uuid }));
+                    setStoreDonor(null)
+                })
+        }
+    }, [storeDonor, dispatchDonors, dispatchStories, showToast]);
+
+
+
+
+
+    return {
+
+        storeDonor,
+        setStoreDonor,
+        updateDonor,
+        setUpdateDonor,
+        destroyDonor,
+        setDestroyDonor
+    };
+}
