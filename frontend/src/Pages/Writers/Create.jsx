@@ -1,6 +1,6 @@
 import { useContext, useState, useRef } from 'react';
-//import { Writers } from '../../Contexts/Writers';
-//import useImage from '../../Hooks/useImage';
+import { Writers } from '../../Contexts/Writers';
+import useImage from '../../Hooks/useImage';
 import '../../Style/StoryCard.scss';
 
 
@@ -21,9 +21,9 @@ export default function CreateStory() {
 
   const [inputs, setInputs] = useState(defaultInputs);
 
-  //const { setStoreWriter } = useContext(Writers)
+  const { setStoreWriter } = useContext(Writers)
 
-  //const { image, readImage, setImage } = useImage();
+  const { image, readImage, setImage } = useImage();
   const imageInput = useRef()
 
   const handleChange = e => {
@@ -91,16 +91,16 @@ export default function CreateStory() {
             type="file"
             ref={imageInput}
             id="image"
-            // onChange={readImage}
+             onChange={readImage}
           />
         </div>
         {/* {console.log(image)} */}
-        {/* {
+        {
           image &&
           <div className="mb-3" >
             <img src={image} alt={inputs.name} className="img-fluid" style={{ width: '350px' }} />
           </div>
-        } */}
+        }
         
 
         <div className="field">
