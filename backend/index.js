@@ -85,53 +85,53 @@ const writeImage = imageBase64 => {
 //   }
 // }
 
-// const checkUserIsAuthorized = (user, res, roles) => {
-//   if (user && roles.includes(user.role)) {
-//     return true;
-//   } else if (user && roles.includes('self:' + user.id)) {
-//     return true;
-//   } else if (user) {
-//     res.status(401).json({
-//       message: 'Not authorized',
-//       type: 'role'
-//     });
-//     return false; // <--- pridėk šitą
-//   } else {
-//     res.status(401).json({
-//       message: 'Not logged in',
-//       type: 'login'
-//     });
-//     return false; // <--- ir šitą
-//   }
-// }
+const checkUserIsAuthorized = (user, res, roles) => {
+  if (user && roles.includes(user.role)) {
+    return true;
+  } else if (user && roles.includes('self:' + user.id)) {
+    return true;
+  } else if (user) {
+    res.status(401).json({
+      message: 'Not authorized',
+      type: 'role'
+    });
+    return false; // <--- pridėk šitą
+  } else {
+    res.status(401).json({
+      message: 'Not logged in',
+      type: 'login'
+    });
+    return false; // <--- ir šitą
+  }
+}
 
 
-// const doAuth = (req, res, next) => {
-//   const token = req.cookies.donateSession || '';
+const doAuth = (req, res, next) => {
+  const token = req.cookies.donateSession || '';
 
-//   //console.log('token', token)
-//   if (token === '') {
-//     return next();
-//   }
-//   const sql = `
-//     SELECT name, id, role
-//     FROM users
-//     WHERE session = ?
-//   `;
-//   connection.query(sql, [token], (err, results) => {
-//     if (err) {
-//       res.status(500).json({ message: 'Server error On Auth' });
-//     } else {
-//       if (results.length > 0) {
-//         const user = results[0];
-//         req.user = user;
-//       }
-//     }
-//     return next();
-//   });
-// };
+  //console.log('token', token)
+  if (token === '') {
+    return next();
+  }
+  const sql = `
+    SELECT name, id, role
+    FROM users
+    WHERE session = ?
+  `;
+  connection.query(sql, [token], (err, results) => {
+    if (err) {
+      res.status(500).json({ message: 'Server error On Auth' });
+    } else {
+      if (results.length > 0) {
+        const user = results[0];
+        req.user = user;
+      }
+    }
+    return next();
+  });
+};
 
-// app.use(doAuth);
+app.use(doAuth);
 
 // // 2️⃣ Autentifikacijos middleware (kad nustatytų req.user)
 // app.use((req, res, next) => {
@@ -463,7 +463,7 @@ app.post('/donors', (req, res) => {
 app.post('/users', (req, res) => {
   const name = req.body.name || req.body.userName || req.body.username;
   const { password } = req.body
-  //console.log('user', req.body)
+  console.log('user', req.body)
   const sql = 'INSERT INTO users (name, password, role) VALUES (?, ?, ?)';
   connection.query(sql, [name, md5(password), 'animal'], (err) => {
     if (err) {

@@ -1,6 +1,7 @@
 @use "./navbar.scss";
 @use "./fonts.scss";
 @use "./home.scss";
+@use "./users.scss";
 @use "./variables.scss" as *;
 
 :root {
@@ -36,10 +37,10 @@
 }
 
 
-// .app {
-//   width: 85%;
-//   margin: auto;
-// }
+.app {
+  width: 85%;
+  margin: auto;
+}
 
 body {
   background: var(--bg);
