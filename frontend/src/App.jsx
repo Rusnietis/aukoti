@@ -7,7 +7,7 @@ import RegisterIndex from './Pages/Users/Index.jsx';
  import Login from './Pages/Auth/Login.jsx';
 // import AdminIndex from './Pages/Admin/Index.jsx';
 
-// import Page404 from './Pages/Page404.jsx';
+ import Page404 from './Pages/Page404.jsx';
 // import Page401 from './Pages/Page401.jsx';
 // import Page503 from './Pages/Page503.jsx';
 // import PageUPS from './Pages/PageUps.jsx';
@@ -42,9 +42,9 @@ export default function App() {
 
         {/* <Route path="/error/ups" element={<PageUPS />} />
         <Route path="/error/401" element={<Page401 />} />
-        <Route path="/error/503" element={<Page503 />} />
+        <Route path="/error/503" element={<Page503 />} /> */}
 
-        <Route path="*" element={<Page404 />} />  */}
+        <Route path="*" element={<Page404 />} /> 
 
 
       </Routes>
