@@ -1,13 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { Stories } from "../../Contexts/Stories";
+import { Stories } from '../../Contexts/Stories';
 import { Donors } from '../../Contexts/Donors';
 import { SERVER_URL } from "../../Constants/main";
 import * as s from '../../Actions/stories';
 import '../../Style/StoriesList.scss';
 import '../../Style/button18.scss';
 import '../../Style/loader.scss';
+
 
 const defaultInputs = {
   name: '',
@@ -22,6 +23,7 @@ export default function List() {
 
   const { stories, dispatchStories } = useContext(Stories);
   const { donors, setStoreDonor } = useContext(Donors);
+  const [loading, setLoading] = useState(true)
 
   //console.log('Donors', donors)
   console.log('Stories', stories)
@@ -55,6 +57,19 @@ export default function List() {
     story => story.status?.toLowerCase().trim() === "approved"
   );
 
+ useEffect(() => {
+  if (stories !== undefined) {
+    setLoading(false);
+  }
+}, [stories]);
+
+  if (loading) {
+    return (
+      <div className="loader">
+        <div></div>
+      </div>
+    );
+  }
   console.log("Approved count:", approvedStories.length); // turi būti 1
 
   //   const approvedStories = stories.filter(story => {
@@ -77,18 +92,14 @@ export default function List() {
   //   stories.map(s => `"${s.status}"`)
   // );
 
-  // if (!stories) return (< div className="loader"></div>)
-// return (< div className="loader"><div></div></div>)
+  if (approvedStories.length === 0) {
+    return <h2>Nėra patvirtintų istorijų</h2>;
+  }
   return (
     <aside className="preview-col">
 
       {/* Filtruojame tik patvirtintas istorijas */}
-      {approvedStories.length === 0 ? (
-        <div className="no-stories">
-          <h2>🔔 Šiuo metu nėra patvirtintų istorijų</h2>
-          <p>Patikrinkite vėliau – netrukus čia atsiras naujų pagalbos prašymų.</p>
-        </div>
-      ) : (
+      {
         approvedStories
           .map((story) => (
             <div key={story.id} className="list-card">
@@ -187,7 +198,8 @@ export default function List() {
               )}
             </div>
           ))
-      )}
+
+      }
     </aside>
   );
 
