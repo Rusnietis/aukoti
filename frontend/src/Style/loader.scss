@@ -1,0 +1,43 @@
+.loader {
+
+    position: relative;
+    width: 100px;
+    height: 100px;
+
+
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 5px solid transparent;
+    }
+
+    &::before {
+        border-top-color: #6366f1;
+        border-right-color: #8b5cf6;
+        animation: spin 1s linear infinite;
+    }
+
+    &::after {
+        border-bottom-color: #06b6d4;
+        border-left-color: #3b82f6;
+        animation: spinReverse 1.4s linear infinite;
+    }
+}
+
+
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinReverse {
+    to {
+        transform: rotate(-360deg);
+    }
+}

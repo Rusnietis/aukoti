@@ -7,6 +7,7 @@ import { SERVER_URL } from "../../Constants/main";
 import * as s from '../../Actions/stories';
 import '../../Style/StoriesList.scss';
 import '../../Style/button18.scss';
+import '../../Style/loader.scss';
 
 const defaultInputs = {
   name: '',
@@ -76,6 +77,8 @@ export default function List() {
   //   stories.map(s => `"${s.status}"`)
   // );
 
+  // if (!stories) return (< div className="loader"></div>)
+// return (< div className="loader"><div></div></div>)
   return (
     <aside className="preview-col">
 

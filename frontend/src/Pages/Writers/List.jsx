@@ -10,6 +10,10 @@ export default function StoryCard() {
 
   console.log('stories', stories)
 
+
+
+
+
   return (
     <aside className="preview-col">
       {stories.map((story) => (
