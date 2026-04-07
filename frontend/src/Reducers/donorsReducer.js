@@ -12,8 +12,11 @@ export default function donorsReducer(state, action) {
 
         case constants.CREATE_DONOR:
             // Sukuriam laikiną donorą (su UUID kaip id)
+             //console.log('Reduceris gavo CREATE_DONOR veiksmą:', action.payload);
             newState.unshift({ ...action.payload, temp: true });
+           
             break;
+            
 
         case constants.CREATE_DONOR_REAL:
             // Surandam donorą pagal jo laikiną id
@@ -25,10 +28,7 @@ export default function donorsReducer(state, action) {
                 donor.amount = action.payload.amount;
                 donor.story_id = action.payload.story_id;
                 donor.date = action.payload.date;
-            } else {
-                // Jei nerado, tiesiog pridedam naują donorą iš serverio
-                newState.unshift(action.payload);
-            }
+            } 
             break;
 
         case constants.CREATE_DONOR_UNDO:

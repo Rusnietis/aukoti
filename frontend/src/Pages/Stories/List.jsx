@@ -35,7 +35,7 @@ export default function List() {
 
   const addMoney = (story) => {
     const donationData = {
-      //  id: uuidv4(),
+        id: uuidv4(),
       name: inputs.name,
       amount: parseFloat(inputs.amount),
       story_id: story.id,
@@ -185,6 +185,7 @@ export default function List() {
                     {donors
                       ?.filter(d => d.story_id === story.id)
                       .map(donor => (
+                        
                         <div key={donor.id} className="donor-list">
                           <li>{donor.name} – {donor.amount} €</li>
                         </div>
