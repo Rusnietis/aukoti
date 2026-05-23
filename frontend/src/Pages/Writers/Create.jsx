@@ -1,6 +1,8 @@
 import { useContext, useState, useRef } from 'react';
 import { Writers } from '../../Contexts/Writers';
+import { ToastContext } from '../../Contexts/Toast';
 import useImage from '../../Hooks/useImage';
+import * as v from '../../Validators/textInputs'
 import '../../Style/StoryCard.scss';
 
 
@@ -22,16 +24,35 @@ export default function CreateStory() {
   const [inputs, setInputs] = useState(defaultInputs);
 
   const { setStoreWriter } = useContext(Writers)
+  const { showToast } = useContext(ToastContext)
 
   const { image, readImage, setImage } = useImage();
-  const imageInput = useRef()
+  const imageInput = useRef();
+  const [e, setE] = useState(new Map());
+
+
 
   const handleChange = e => {
     setInputs(prev => ({ ...prev, [e.target.id]: e.target.value }));
   }
 
   const create = _ => {
-    console.log("KURIU SU INPUTS:", inputs);
+
+    const errors = new Map();
+
+    v.validate(inputs.name, 'Name', errors, [v.required, v.string, v.letersOnly, [v.min, 3], [v.max, 100]]);
+    v.validate(inputs.surname, 'Surname', errors, [v.required, v.string, v.letersOnly, [v.min, 3], [v.max, 100]]);
+    v.validate(inputs.shortDescription, 'ShortDescription', errors, [v.sometimes, v.string, [v.min, 3]]);
+    v.validate(inputs.createdAt, 'CreatedAt', errors, [v.required, v.date]);
+
+    if (errors.size > 0) {
+      errors.forEach(err => showToast({ type: 'error', text: err }));
+      setE(errors);
+      //console.log(errors)
+      return;
+    }
+
+    //console.log("KURIU SU INPUTS:", inputs);
     setStoreWriter({ ...inputs, image });
     setInputs(defaultInputs);
     imageInput.current.value = null;
@@ -53,17 +74,17 @@ export default function CreateStory() {
       <form className="story-form" autoComplete="off">
         <div className="field">
           <label htmlFor="name" >Vardas</label>
-          <input type="text" id="name" value={inputs.name} onChange={handleChange} placeholder="Įveskite vardą" />
+          <input type="text" style={{ borderColor: e.has('Name') ? 'crimson' : null }} id="name" value={inputs.name} onChange={handleChange} placeholder="Įveskite vardą" />
         </div>
 
         <div className="field">
           <label htmlFor="surname">Pavardė</label>
-          <input type="text" id="surname" value={inputs.surname} onChange={handleChange} placeholder="Įveskite pavardę" />
+          <input type="text" style={{ borderColor: e.has('Surname') ? 'crimson' : null }} id="surname" value={inputs.surname} onChange={handleChange} placeholder="Įveskite pavardę" />
         </div>
 
         <div className="field">
           <label htmlFor="createdAt">Sukūrimo data</label>
-          <input type="date" id="createdAt" value={inputs.createdAt} onChange={handleChange} />
+          <input type="date" style={{ borderColor: e.has('CreatedAt') ? 'crimson' : null }} id="createdAt" value={inputs.createdAt} onChange={handleChange} />
         </div>
 
         <div className="field">
@@ -74,6 +95,7 @@ export default function CreateStory() {
           <label htmlFor="shortDescription">Trumpas aprašymas</label>
           <input
             type="text"
+            style={{ borderColor: e.has('ShortDescription') ? 'crimson' : null }}
             id="shortDescription"
             value={inputs.shortDescription}
             onChange={handleChange}
@@ -91,7 +113,7 @@ export default function CreateStory() {
             type="file"
             ref={imageInput}
             id="image"
-             onChange={readImage}
+            onChange={readImage}
           />
         </div>
         {/* {console.log(image)} */}
@@ -101,7 +123,7 @@ export default function CreateStory() {
             <img src={image} alt={inputs.name} className="img-fluid" style={{ width: '350px' }} />
           </div>
         }
-        
+
 
         <div className="field">
           <label htmlFor="goal">Norima surinkti suma (EUR)</label>
