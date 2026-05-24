@@ -24,6 +24,10 @@ export const validate = (value, input, errors, rules) => {
 }
 
 export const sometimes = value => {
+    if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'object') {
+        return 0;
+    }
+
     if (value) {
         return 0;
     }
@@ -32,6 +36,11 @@ export const sometimes = value => {
 
 
 export const required = value => {
+
+    if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'object') {
+        return true;
+    }
+
     if (value) {
         return true;
     }
@@ -94,7 +103,7 @@ export const date = value => {
 }
 
 export const imageType = (value, types) => {
-    if(types.includes(value.type.split('/').pop())){
+    if (types.includes(value.type.split('/').pop())) {
         return true;
     }
     return 'Invalid image type or not an image';
@@ -102,8 +111,8 @@ export const imageType = (value, types) => {
 }
 
 export const imageSize = (value, size) => {
-    if(value.size <= size) {
+    if (value.size <= size) {
         return true;
     }
-    return 'Image too big. Max size is ' + size/1000000 + 'MB';
+    return 'Image too big. Max size is ' + size / 1000000 + 'MB';
 }

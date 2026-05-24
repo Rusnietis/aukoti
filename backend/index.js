@@ -179,13 +179,13 @@ app.post('/login', (req, res) => {
               name: results[0].name,
               role: results[0].role,
               id: results[0].id,
-              message: { type: 'success', text: ` ${username} sekmingai prisijungete`}
+              message: { type: 'success', text: ` ${username} sekmingai prisijungete` }
 
             });
           }
         });
       } else {
-        res.status(401).json({ message:{ type: 'error', text:'Neteisingas vardas arba slaptažodis' }});
+        res.status(401).json({ message: { type: 'error', text: 'Neteisingas vardas arba slaptažodis' } });
       }
     }
   });
@@ -282,9 +282,9 @@ app.get('/writers', (req, res) => {
       res.status(500);
     } else {
       res.json(results);
-      
+
     }
-    
+
   })
 }
 )
@@ -338,7 +338,7 @@ app.get("/stories", (req, res) => {
     }
 
     res.json(results);
-     console.log('results', results)
+    console.log('results', results)
   });
 });
 
@@ -360,7 +360,12 @@ app.post("/writers", (req, res) => {
   const filename = writeImage(req.body.image);
   console.log('filename', filename)
   const { name, surname, createdAt, title, shortDescription, story, image, goal } = req.body;
-  console.log('POST', req.body)
+  // validuojame, kad visi privalomi laukai yra užpildyti
+  if (!name || !surname || !createdAt || !title || !story || !goal) {
+    res.status(400).json({ message: { type: 'error', text: 'Trūksta privalomų laukų' } });
+    return;
+  }
+  //console.log('POST', req.body)
   const writerId = uuidv4();
   const storyId = uuidv4();
 
@@ -400,8 +405,11 @@ app.post("/writers", (req, res) => {
 
 app.post('/donors', (req, res) => {
   const { name, amount, story_id, date } = req.body;
-  console.log('POST Donor', req.body);
-
+  //console.log('POST Donor', req.body);
+  if( !name || !amount || !story_id || !date) {
+   res.status(400).json({ message: 'Trūksta privalomų laukų' });
+   return;
+  }
   // 1️⃣ Patikriname ar istorija dar nesurinko tikslo
   const sqlCheck = `SELECT goal, collected FROM stories WHERE id = ?`;
   connection.query(sqlCheck, [story_id], (err, result) => {
@@ -451,7 +459,7 @@ app.post('/donors', (req, res) => {
           story_id,
           date,
           newCollected,
-         message: { type: 'success', text: 'Ačiū už jūsų auką!' }
+          message: { type: 'success', text: 'Ačiū už jūsų auką!' }
         });
       });
     });
