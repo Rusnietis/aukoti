@@ -37,6 +37,7 @@ export default function CreateStory() {
   }
 
   const create = _ => {
+    console.log(imageInput.current.files[0])
 
     const errors = new Map();
 
@@ -44,6 +45,7 @@ export default function CreateStory() {
     v.validate(inputs.surname, 'Surname', errors, [v.required, v.string, v.letersOnly, [v.min, 3], [v.max, 100]]);
     v.validate(inputs.shortDescription, 'ShortDescription', errors, [v.sometimes, v.string, [v.min, 3]]);
     v.validate(inputs.createdAt, 'CreatedAt', errors, [v.required, v.date]);
+    v.validate(imageInput.current.files[0], 'Image', errors, [v.sometimes, [v.imageType,['jpeg','png']], [v.imageSize, 1000000]]);
 
     if (errors.size > 0) {
       errors.forEach(err => showToast({ type: 'error', text: err }));
@@ -111,6 +113,7 @@ export default function CreateStory() {
           <label htmlFor="image">Nuotrauka</label>
           <input
             type="file"
+            style={{ borderColor: e.has('ImageInput') ? 'crimson' : null }}
             ref={imageInput}
             id="image"
             onChange={readImage}

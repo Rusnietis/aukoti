@@ -1,3 +1,5 @@
+// TODO validate move to separate file
+
 export const validate = (value, input, errors, rules) => {
     for (let i = 0; i < rules.length; i++) {
         let result;
@@ -89,4 +91,19 @@ export const date = value => {
         return true;
     }
     return 'Invalid date fotmat or date is missing';
+}
+
+export const imageType = (value, types) => {
+    if(types.includes(value.type.split('/').pop())){
+        return true;
+    }
+    return 'Invalid image type or not an image';
+
+}
+
+export const imageSize = (value, size) => {
+    if(value.size <= size) {
+        return true;
+    }
+    return 'Image too big. Max size is ' + size/1000000 + 'MB';
 }
