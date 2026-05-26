@@ -338,7 +338,7 @@ app.get("/stories", (req, res) => {
     }
 
     res.json(results);
-    console.log('results', results)
+    //console.log('results', results)
   });
 });
 

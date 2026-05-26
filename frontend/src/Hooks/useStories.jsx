@@ -23,23 +23,23 @@ export default function useStories(dispatchStories) {
 
 
     useEffect(_ => {
-// axios.get(`${SERVER_URL}/stories`, { withCredentials: true })
+        // axios.get(`${SERVER_URL}/stories`, { withCredentials: true })
         axios.get(`${SERVER_URL}/stories`)
             .then(res => {
                 console.log(res.data)
                 dispatchStories(a.getStories(res.data));
             })
             .catch(err => {
-                // if (err?.response?.status === 401) {
-                //     if (err.response.data.type === 'login') {
-                //         navigate("/login");
-                //     } else {
-                //         navigate("/error/401");
-                //     }
-                // } else {
-                //     navigate("/error/503");
-                //     //navigate("/error/ups");
-                // }
+                if (err?.response?.status === 401) {
+                    if (err.response.data.type === 'login') {
+                        navigate("/login");
+                    } else {
+                        navigate("/error/401");
+                    }
+                } else {
+                    navigate("/error/503");
+                    //navigate("/error/ups");
+                }
                 console.log(err);
             })
 
@@ -49,7 +49,5 @@ export default function useStories(dispatchStories) {
     return {
         storeStory,
         setStoreStory
-
-
     };
 }

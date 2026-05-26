@@ -1,21 +1,23 @@
+import { useContext } from 'react';
 import Nav from '../../Components/Nav';
 import Create from './Create';
 import List from './List';
 import '../../Style/StoryCard.scss';
+import { Stories } from '../../Contexts/Stories';
 
 
 
 
 export default function Layout() {
-  // const { editCustomer, customers } = useContext(Customers);
+   const { stories } = useContext(Stories);
 
-  // if (customers === null) {
-  //   return (
-  //     <div className="loader">
-  //       <div></div>
-  //     </div>
-  //   );
-  // }
+  if (null === stories ) {
+    return (
+      <div className="loader">
+        <div></div>
+      </div>
+    );
+  }
 
   return (
      <div className="page-container">

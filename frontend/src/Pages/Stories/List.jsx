@@ -35,7 +35,7 @@ export default function List() {
 
   const addMoney = (story) => {
     const donationData = {
-        id: uuidv4(),
+      id: uuidv4(),
       name: inputs.name,
       amount: parseFloat(inputs.amount),
       story_id: story.id,
@@ -57,19 +57,19 @@ export default function List() {
     story => story.status?.toLowerCase().trim() === "approved"
   );
 
- useEffect(() => {
-  if (stories !== undefined) {
-    setLoading(false);
-  }
-}, [stories]);
+  useEffect(() => {
+    if (stories !== undefined) {
+      setLoading(false);
+    }
+  }, [stories]);
 
-  if (loading) {
-    return (
-      <div className="loader">
-        <div></div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="loader">
+  //       <div></div>
+  //     </div>
+  //   );
+  // }
   console.log("Approved count:", approvedStories.length); // turi būti 1
 
   //   const approvedStories = stories.filter(story => {
@@ -185,7 +185,7 @@ export default function List() {
                     {donors
                       ?.filter(d => d.story_id === story.id)
                       .map(donor => (
-                        
+
                         <div key={donor.id} className="donor-list">
                           <li>{donor.name} – {donor.amount} €</li>
                         </div>
