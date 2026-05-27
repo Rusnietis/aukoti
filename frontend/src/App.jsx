@@ -10,7 +10,7 @@ import RegisterIndex from './Pages/Users/Index.jsx';
  import Page404 from './Pages/Page404.jsx';
 import Page401 from './Pages/Page401.jsx';
 import Page503 from './Pages/Page503.jsx';
-// import PageUPS from './Pages/PageUps.jsx';
+import PageUPS from './Pages/PageUps.jsx';
 
 
 export default function App() {
@@ -40,7 +40,7 @@ export default function App() {
         <Route path="/register/*" element={<RegisterIndex />} />
 
 
-        {/* <Route path="/error/ups" element={<PageUPS />} /> */}
+        <Route path="/error/ups" element={<PageUPS />} />
         <Route path="/error/401" element={<Page401 />} />
         <Route path="/error/503" element={<Page503 />} />
 
