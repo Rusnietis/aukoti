@@ -11,7 +11,7 @@ export const StoriesProvider = ({ children }) => {
     const [deleteStory, setDeleteStory] = useState(null);
     const [editStory, setEditStory] = useState(null);
 
-    console.log('stories', stories)
+
 
     // is hooko gauname funkcijas, su kuriai kreipsimes i severi ir su reduserio pagalba atnaujina duomenis
     useStories(dispatchStories);

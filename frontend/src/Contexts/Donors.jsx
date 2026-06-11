@@ -11,7 +11,7 @@ export const DonorsProvider = ({ children }) => {
     const [deleteDonor, setDeleteDonor] = useState(null);
     const [editDonor, setEditDonor] = useState(null);
 
-    console.log('donors', donors)
+    //console.log('donors', donors)
    
     // is hooko gauname funkcijas, su kuriai kreipsimes i severi ir su reduserio pagalba atnaujina duomenis
     const { storeDonor, setStoreDonor, updateDonor, setUpdateDonor, destroyDonor, setDestroyDonor } = useDonors(dispatchDonors);

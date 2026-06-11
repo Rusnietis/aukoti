@@ -12,7 +12,7 @@ export const WritersProvider = ({ children }) => {
     const [deleteWriter, setDeleteWriter] = useState(null);
     const [editWriter, setEditWriter] = useState(null);
 
-    console.log('writers', writers)
+    //console.log('writers', writers)
     const { dispatchStories } = useContext(Stories);
     // is hooko gauname funkcijas, su kuriai kreipsimes i severi ir su reduserio pagalba atnaujina duomenis
     const { storeWriter, setStoreWriter, updateWriter, setUpdateWriter, destroyWriter, setDestroyWriter } = useWriters(dispatchWriters, dispatchStories);

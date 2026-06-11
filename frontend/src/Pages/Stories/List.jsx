@@ -1,4 +1,3 @@
-
 import { SERVER_URL } from "../../Constants/main";
 import { Link } from "react-router-dom";
 import useGet from '../../Hooks/useGet';
@@ -19,9 +18,6 @@ export default function List() {
  const approvedStories = data?.filter(
     story => story.status === "approved"
   );
-
-console.log(approvedStories);
-  
 
   if (loading) return (<div className="loader"><div></div></div>);
 

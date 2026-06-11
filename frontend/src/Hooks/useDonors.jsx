@@ -24,9 +24,7 @@ export default function useDonors(dispatchDonors, dispatchStories) {
 
         axios.get(`${SERVER_URL}/donors`)
             .then(res => {
-                console.log(res.data)
                 dispatchDonors(c.getDonors(res.data));
-
             })
             .catch(err => {
                 console.log(err);

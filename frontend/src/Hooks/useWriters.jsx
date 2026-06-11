@@ -23,9 +23,7 @@ export default function useWriters(dispatchWriters, dispatchStories) {
 
         axios.get(`${SERVER_URL}/writers`, { withCredentials: true})
             .then(res => {
-                console.log(res.data)
                 dispatchWriters(c.getWriters(res.data));
-
             })
             .catch(err => {
                 console.log(err)

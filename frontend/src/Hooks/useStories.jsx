@@ -26,7 +26,6 @@ export default function useStories(dispatchStories) {
         // axios.get(`${SERVER_URL}/stories`, { withCredentials: true })
         axios.get(`${SERVER_URL}/stories`)
             .then(res => {
-                console.log(res.data)
                 dispatchStories(a.getStories(res.data));
             })
             .catch(err => {

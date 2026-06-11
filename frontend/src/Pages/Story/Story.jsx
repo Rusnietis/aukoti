@@ -1,7 +1,9 @@
-
-import { SERVER_URL } from "../../Constants/main";
+import { useState } from 'react';
+import { SERVER_URL } from '../../Constants/main';
 import useGet from '../../Hooks/useGet';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+import Modal from '../../Components/Modal';
+import '../../Style/Modal.scss'
 import '../../Style/StoriesList.scss';
 import '../../Style/button18.scss';
 import '../../Style/loader.scss';
@@ -10,11 +12,12 @@ import '../../Style/loader.scss';
 
 
 export default function Story() {
+  const [open, setOpen] = useState(false);
 
   const { id } = useParams();
   const { data, loading } = useGet('/visitors/stories/' + id || '0');
 
-  console.log(data)
+
   if (loading) return (<div className="loader"><div></div></div>);
 
   return (
@@ -37,7 +40,26 @@ export default function Story() {
           <div className="list-story">{data.story}</div>
         </div>
       </div>
+      <>
+      <button onClick={() => setOpen(true)}>
+        Atidaryti modalą
+      </button>
 
+      <Modal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+      >
+        <h2>Modalo antraštė</h2>
+
+        <p>
+          Tai modalo turinys be Bootstrap.
+        </p>
+
+        <button onClick={() => setOpen(false)}>
+          Uždaryti
+        </button>
+      </Modal>
+    </>
     </aside>
   );
 

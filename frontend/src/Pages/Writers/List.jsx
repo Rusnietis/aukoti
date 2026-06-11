@@ -8,7 +8,7 @@ export default function StoryCard() {
 
   const { stories } = useContext(Stories)
 
-  console.log('stories', stories)
+  //console.log('stories', stories)
 
 
 
