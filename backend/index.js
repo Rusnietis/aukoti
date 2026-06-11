@@ -313,6 +313,25 @@ app.get("/visitors/stories", (req, res) => {
 
 });
 
+//istorijos gavimas
+app.get("/visitors/stories/:id", (req, res) => {
+  const sql = `
+  SELECT s.id, s.writer_id, s.title, s.short_description, s.story, s.goal, s.image, s.status, s.collected
+  FROM stories s
+  LEFT JOIN writers w ON s.writer_id = w.id
+  WHERE s.id = ?
+  `;
+  connection.query(sql, [req.params.id], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Klaida gaunant duomenis iš stories", error: err });
+    } else if (results.length === 0) {
+      return res.status(404).json({ message: "Istorija nerasta" });
+    } else {
+      res.json(results[0]);
+    }
+  });
+});
+     
 app.get("/stories", (req, res) => {
 
   // if (!checkUserIsAuthorized(req.user, res, ['user', 'animal'])) {

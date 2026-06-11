@@ -2,6 +2,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './Components/Nav';
 import WriterIndex from './Pages/Writers/Index.jsx';
 import StoriesIndex from './Pages/Stories/Index.jsx';
+import StoryIndex from './Pages/Story/Index.jsx';
 import HomeIndex from './Pages/Home/Index.jsx';
 import RegisterIndex from './Pages/Users/Index.jsx';
  import Login from './Pages/Auth/Login.jsx';
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/" element={<HomeIndex />} />
         <Route path="/apie" element={<HomeIndex />} />
         <Route path="/istorijos" element={<StoriesIndex />} />
+        <Route path="/istorijos/:id" element={<StoryIndex />} />
         <Route path="/mano-istorijos" element={<WriterIndex />} />
         {/* <Route path="/admin/*" element={<AdminIndex />} /> */}
         <Route path="/login" element={<Login />} />

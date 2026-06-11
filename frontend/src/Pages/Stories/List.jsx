@@ -1,5 +1,6 @@
 
 import { SERVER_URL } from "../../Constants/main";
+import { Link } from "react-router-dom";
 import useGet from '../../Hooks/useGet';
 import '../../Style/StoriesList.scss';
 import '../../Style/button18.scss';
@@ -12,13 +13,22 @@ export default function List() {
 
 
   const { data, loading } = useGet('/visitors/stories');
-  console.log(data)
+ 
+
+  
+ const approvedStories = data?.filter(
+    story => story.status === "approved"
+  );
+
+console.log(approvedStories);
+  
+
   if (loading) return (<div className="loader"><div></div></div>);
 
   return (
     <aside className="preview-col">
       {
-        data.map(story => (
+        approvedStories.map(story => (
           <div className="list-card" key={story.id}>
             <div className="preview-title">
               <h2 id="card-title">{story.title}</h2>
@@ -32,8 +42,12 @@ export default function List() {
                 )}
               </div>
               <div className="list-story">{story.short_description}</div>
-            </div>
 
+
+            </div>
+            <div className="preview-button">
+              <Link to={`/istorijos/${story.id}`} className="button18">Daugia čia</Link>
+            </div>
           </div>
         ))
       }

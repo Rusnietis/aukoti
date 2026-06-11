@@ -134,3 +134,18 @@
     color: rgba(0, 0, 0, 0.3);
   }
 }
+
+.preview-button {
+display: flex;
+justify-content: flex-end;
+margin-top: 10px;
+a.button18 {
+  padding: 8px 16px;
+  font-size: 14px;
+  height: 40px;
+  background-color: #0A66C2;
+  color: #fff;
+  border-radius: 20px;
+}
+
+}
