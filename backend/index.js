@@ -6,6 +6,7 @@ const mysql = require('mysql');
 const fs = require('fs');
 const md5 = require('md5');
 const { v4: uuidv4 } = require('uuid');
+const slugify = require('slugify');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -292,7 +293,7 @@ app.get('/writers', (req, res) => {
 // Gauti visas admin patvirtintas istorijas tik su nuotrauka, pavadinimu ir trumpu aprasymu
 app.get("/visitors/stories", (req, res) => {
   const sql = `
-  SELECT s.id, s.writer_id, s.title, s.short_description, s.story, s.goal, s.image, s.status, s.collected
+  SELECT s.id, s.writer_id, s.title, s.url, s.short_description, s.story, s.goal, s.image, s.status, s.collected
   FROM stories s
   LEFT JOIN writers w ON s.writer_id = w.id
   ORDER BY 
@@ -313,15 +314,15 @@ app.get("/visitors/stories", (req, res) => {
 
 });
 
-//istorijos gavimas
-app.get("/visitors/stories/:id", (req, res) => {
+//vienos istorijos gavimas
+app.get("/visitors/stories/:slug", (req, res) => {
   const sql = `
-  SELECT s.id, s.writer_id, s.title, s.short_description, s.story, s.goal, s.image, s.status, s.collected
+  SELECT s.id, s.writer_id, s.title, s.url, s.short_description, s.story, s.goal, s.image, s.status, s.collected
   FROM stories s
   LEFT JOIN writers w ON s.writer_id = w.id
-  WHERE s.id = ?
+  WHERE s.url = ?
   `;
-  connection.query(sql, [req.params.id], (err, results) => {
+  connection.query(sql, [req.params.slug], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Klaida gaunant duomenis iš stories", error: err });
     } else if (results.length === 0) {
@@ -331,7 +332,7 @@ app.get("/visitors/stories/:id", (req, res) => {
     }
   });
 });
-     
+
 app.get("/stories", (req, res) => {
 
   // if (!checkUserIsAuthorized(req.user, res, ['user', 'animal'])) {
@@ -394,19 +395,26 @@ app.post("/writers", (req, res) => {
       return res.status(500).json({ message: 'Klaida įrašant į writers lentelę', error: err1 });
     }
 
-    const sql2 = `INSERT INTO stories (id, writer_id, title, short_description, story, goal, image)
-              VALUES (?, ?, ?, ?, ?, ?,?)`;
-    connection.query(sql2, [storyId, writerId, title, shortDescription, story, goal, filename ? 'images/' + filename : null], (err2, results2) => {
+    const url = slugify(title, {
+      lower: true,
+      strict: true,
+    });
+
+    const sql2 = `INSERT INTO stories (id, writer_id, title, url, short_description, story, goal, image)
+              VALUES (?, ?, ?, ?, ?, ?,?,?)`;
+    connection.query(sql2, [storyId, writerId, title, url, shortDescription, story, goal, filename ? 'images/' + filename : null], (err2, results2) => {
       if (err2) {
         return res.status(500).json({ message: 'Klaida įrašant į stories lentelę', error: err2 });
       }
 
-      const storyId = results2.insertId; // naujai sugeneruotas story id
+      //const storyId = results2.insertId; // naujai sugeneruotas story id
 
       res.json({
         succsess: true,
         writerId,
-        storyId: results2.insertId, // id iš stories lentelės
+        //storyId: results2.insertId, // id iš stories lentelės
+        storyId,
+        url,
         name,
         surname,
         createdAt,
@@ -425,9 +433,9 @@ app.post("/writers", (req, res) => {
 app.post('/donors', (req, res) => {
   const { name, amount, story_id, date } = req.body;
   //console.log('POST Donor', req.body);
-  if( !name || !amount || !story_id || !date) {
-   res.status(400).json({ message: 'Trūksta privalomų laukų' });
-   return;
+  if (!name || !amount || !story_id || !date) {
+    res.status(400).json({ message: 'Trūksta privalomų laukų' });
+    return;
   }
   // 1️⃣ Patikriname ar istorija dar nesurinko tikslo
   const sqlCheck = `SELECT goal, collected FROM stories WHERE id = ?`;

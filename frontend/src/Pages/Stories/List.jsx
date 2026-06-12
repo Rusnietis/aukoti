@@ -12,7 +12,8 @@ export default function List() {
 
 
   const { data, loading } = useGet('/visitors/stories');
- 
+  
+  console.log(data)
 
   
  const approvedStories = data?.filter(
@@ -42,7 +43,7 @@ export default function List() {
 
             </div>
             <div className="preview-button">
-              <Link to={`/istorijos/${story.id}`} className="button18">Daugia čia</Link>
+              <Link to={`/istorijos/${story.url}`} className="button18">Daugia čia</Link>
             </div>
           </div>
         ))
