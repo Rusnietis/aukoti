@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { SERVER_URL } from '../Constants/main';
+import { SERVER_URL } from '../Config/config';
 import * as c from '../Actions/donors';
 import * as s from '../Actions/stories';
 // import { MessagesContext } from '../Contexts/Messages';

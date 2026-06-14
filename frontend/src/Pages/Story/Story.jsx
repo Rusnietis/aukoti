@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SERVER_URL } from '../../Constants/main';
+import { SERVER_URL } from '../../Config/config';
 import useGet from '../../Hooks/useGet';
 import { useParams } from 'react-router-dom';
 import Modal from '../../Components/Modal';

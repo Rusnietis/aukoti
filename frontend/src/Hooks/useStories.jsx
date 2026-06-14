@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { SERVER_URL } from '../Constants/main';
+import { SERVER_URL } from '../Config/config';
 import * as a from '../Actions/stories';
 //import { MessagesContext } from '../Contexts/Messages';
 

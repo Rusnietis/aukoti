@@ -1,4 +1,4 @@
-import { SERVER_URL } from "../../Constants/main";
+import { SERVER_URL } from '../../Config/config';
 import { Link } from "react-router-dom";
 import useGet from '../../Hooks/useGet';
 import '../../Style/StoriesList.scss';

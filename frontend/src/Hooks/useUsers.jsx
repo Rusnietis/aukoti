@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { SERVER_URL } from '../Constants/main';
+import { SERVER_URL } from '../Config/config';
 import { Auth } from '../Contexts/Auth';
 //import { use } from 'react';
 // import { MessagesContext } from '../Contexts/Messages';

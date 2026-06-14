@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { SERVER_URL } from '../Constants/main';
+import { SERVER_URL } from '../Config/config';
 
 
 

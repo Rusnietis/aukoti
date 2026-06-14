@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Users } from '../../Contexts/Users';
-import { SERVER_URL } from '../../Constants/main';
+import { SERVER_URL } from '../../Config/config';
 import '../../Style/users.scss';
 
 export default function Edit() {

@@ -1,5 +1,5 @@
 import * as constants from '../Constants/stories';
-import { SERVER_URL } from '../Constants/main';
+import { SERVER_URL } from '../Config/config';
 // patikrinta
 // funkcija, kuri apdoroja autoriu lista is serverio
 export default function storiesReducer(state, action) {

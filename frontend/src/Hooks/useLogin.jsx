@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { SERVER_URL, AFTER_LOGIN_URL, SITE_URL } from '../Constants/main';
+import { AFTER_LOGIN_URL, } from '../Constants/main';
+import { SERVER_URL, SITE_URL } from '../Config/config';
 import { Auth } from '../Contexts/Auth';
 // import { MessagesContext } from '../Contexts/Messages';
 import { ToastContext } from '../Contexts/Toast';

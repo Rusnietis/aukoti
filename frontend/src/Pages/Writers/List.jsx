@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Stories } from '../../Contexts/Stories';
-import { SERVER_URL } from '../../Constants/main';
+import { SERVER_URL } from '../../Config/config';
 import '../../Style/StoryCard.scss';
 
 
