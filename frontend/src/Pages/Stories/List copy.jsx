@@ -19,7 +19,7 @@ import '../../Style/loader.scss';
 
 export default function List() {
 
-  // const [inputs, setInputs] = useState(defaultInputs);
+  const [inputs, setInputs] = useState(defaultInputs);
 
   const { stories, dispatchStories } = useContext(Stories);
   const { donors, setStoreDonor } = useContext(Donors);

@@ -12,11 +12,11 @@ export default function List() {
 
 
   const { data, loading } = useGet('/visitors/stories');
-  
+
   console.log(data)
 
-  
- const approvedStories = data?.filter(
+
+  const approvedStories = data?.filter(
     story => story.status === "approved"
   );
 
@@ -41,6 +41,10 @@ export default function List() {
               <div className="list-story">{story.short_description}</div>
 
 
+            </div>
+            <div className="goal">
+              <div className="field">🎯 Tikslas</div>
+              <div className="amount-pill">{story.goal} €</div>
             </div>
             <div className="preview-button">
               <Link to={`/istorijos/${story.url}`} className="button18">Daugia čia</Link>
