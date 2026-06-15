@@ -87,7 +87,10 @@ const writeImage = imageBase64 => {
 // }
 
 const checkUserIsAuthorized = (user, res, roles) => {
+  console.log(user);
+  console.log(roles);
   if (user && roles.includes(user.role)) {
+    //console.log(roles);
     return true;
   } else if (user && roles.includes('self:' + user.id)) {
     return true;
@@ -96,13 +99,13 @@ const checkUserIsAuthorized = (user, res, roles) => {
       message: 'Not authorized',
       type: 'role'
     });
-    return false; // <--- pridėk šitą
+    // return false; // <--- pridėk šitą
   } else {
     res.status(401).json({
       message: 'Not logged in',
       type: 'login'
     });
-    return false; // <--- ir šitą
+    // return false; // <--- ir šitą
   }
 }
 
@@ -335,9 +338,9 @@ app.get("/visitors/stories/:slug", (req, res) => {
 
 app.get("/stories", (req, res) => {
 
-  // if (!checkUserIsAuthorized(req.user, res, ['user', 'animal'])) {
-  //   return;
-  // }
+  if (!checkUserIsAuthorized(req.user, res, ['user', 'animal'])) {
+    return;
+  }
 
   const sql = `
   SELECT s.id, s.writer_id, s.title, s.short_description, s.story, s.goal, s.image, s.status, s.collected

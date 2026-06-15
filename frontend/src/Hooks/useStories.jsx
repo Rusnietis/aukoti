@@ -23,8 +23,7 @@ export default function useStories(dispatchStories) {
 
 
     useEffect(_ => {
-        // axios.get(`${SERVER_URL}/stories`, { withCredentials: true })
-        axios.get(`${SERVER_URL}/stories`)
+        axios.get(`${SERVER_URL}/stories`, { withCredentials: true })
             .then(res => {
                 dispatchStories(a.getStories(res.data));
             })
