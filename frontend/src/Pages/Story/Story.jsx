@@ -150,7 +150,7 @@ export default function Story() {
           </div>
         ) : (
           <div className="thanks-message">
-            🎉 Tikslas pasiektas! Dėkojame visiems aukotojams ❤️
+            🎉 Tikslas pasiektas! <b>Paukota {data.collected} €</b>. Dėkojame visiems aukotojams ❤️
           </div>
         )}
     </aside>
