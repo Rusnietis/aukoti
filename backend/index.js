@@ -15,13 +15,13 @@ const connection = mysql.createConnection({
   database: 'donations'
 })
 const app = express();
-const port = 3001;
+//const port = 3001;
 
-//const port = 80;
+const port = 80;
 
 app.use(cors(
   {
-    origin: 'http://localhost:5173',
+    origin: true,
     credentials: true,
   }
 ));
