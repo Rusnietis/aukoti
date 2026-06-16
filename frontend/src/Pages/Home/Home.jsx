@@ -1,11 +1,27 @@
-import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { Home } from '../../Contexts/Home';
+import { Link } from 'react-router-dom';
 
 
-export default function Home() {
+export default function HomePage() {
+
+  const { home } = useContext(Home);
+
+  // console.log(home)
+
   const stats = [
-    { value: "12,430", label: "Aktyvių rėmėjų" },
-    { value: "€1.2M", label: "Surinkta pagalbos" },
-    { value: "318", label: "Projektų įgyvendinta" },
+
+    { value: home?.donoru_kiekis ?? 0, label: "Aktyvių rėmėjų" },
+    {
+      value: `€${(home?.bendra_surinkta_suma ?? 0).toLocaleString("lt-LT", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`, label: "Surinkta pagalbos"
+    },
+    {
+      value: home?.patvirtintu_istoriju_kiekis ?? 0,
+      label: "Projektų įgyvendinta",
+    },
   ];
 
   const features = [
@@ -53,12 +69,18 @@ export default function Home() {
           </div>
 
           <div className="stats">
-            {stats.map((item, index) => (
-              <div className="stats__card" key={index}>
-                <h3>{item.value}</h3>
-                <p>{item.label}</p>
-              </div>
-            ))}
+            {
+              stats !== null
+                ?
+                (
+                  stats.map((item, index) => (
+                    <div className="stats__card" key={index}>
+                      <h3>{item.value}</h3>
+                      <p>{item.label}</p>
+                    </div>
+                  ))
+                ) : (<div className="element-loader"><div></div></div>)
+            }
           </div>
         </div>
       </section>
@@ -87,13 +109,12 @@ export default function Home() {
         </Link>
       </section>
 
-        {/* FOOTER */}
+      {/* FOOTER */}
       <footer className="footer">
         <p>© {new Date().getFullYear()} Padėkime Kartu</p>
       </footer>
-  
+
     </main>
   );
 }
 
-  

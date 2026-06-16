@@ -13,7 +13,7 @@ export default function List() {
 
   const { data, loading } = useGet('/visitors/stories');
 
-  console.log(data)
+  //console.log(data)
 
 
   const approvedStories = data?.filter(

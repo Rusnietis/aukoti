@@ -87,8 +87,6 @@ const writeImage = imageBase64 => {
 // }
 
 const checkUserIsAuthorized = (user, res, roles) => {
-  console.log(user);
-  console.log(roles);
   if (user && roles.includes(user.role)) {
     //console.log(roles);
     return true;
@@ -278,6 +276,29 @@ app.get('/', (req, res) => {
   res.send('Labas Bebrai')
 })
 
+// gauti statistika kiek yra surinkta pinigu, kiek yra istoriju patvirtinta ir kiek yra aukotoju
+app.get('/stats', (req, res) => {
+   
+  const sql = `
+   SELECT
+    COUNT(DISTINCT s.id) AS patvirtintu_istoriju_kiekis,
+    COUNT(d.id) AS donoru_kiekis,
+    SUM(s.goal) AS bendra_tiksline_suma,
+    SUM(s.collected) AS bendra_surinkta_suma
+FROM stories s
+LEFT JOIN donors d
+    ON d.story_id = s.id
+WHERE s.status = 'approved';
+     `;
+  connection.query(sql, (err, results) => {
+    if (err) {
+      res.status(500).json({ message: 'Klaida gaunant statistiką', error: err });
+    } else {
+      res.json(results[0]);
+    }
+  })
+});
+
 app.get('/writers', (req, res) => {
 
   const sql = 'SELECT * FROM writers';
@@ -338,7 +359,7 @@ app.get("/visitors/stories/:slug", (req, res) => {
 
 app.get("/stories", (req, res) => {
 
-  if (!checkUserIsAuthorized(req.user, res, ['admin','user', 'animal'])) {
+  if (!checkUserIsAuthorized(req.user, res, ['admin', 'user', 'animal'])) {
     return;
   }
 
