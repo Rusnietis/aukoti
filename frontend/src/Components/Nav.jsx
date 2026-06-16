@@ -3,6 +3,7 @@ import { useContext } from "react";
 import logo from '../assets/logo.svg';
 import { Auth } from '../Contexts/Auth.jsx'
 import useLogin from "../Hooks/useLogin.jsx";
+import Gate from "../Pages/Auth/Gate.jsx";
 
 export default function Nav() {
 
@@ -27,9 +28,9 @@ export default function Nav() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/mano-istorijos" className={({ isActive }) => (isActive ? "active" : "")}>
+          <Gate roles="admin|user|animal"><NavLink to="/mano-istorijos" className={({ isActive }) => (isActive ? "active" : "")}>
             Mano istorijos
-          </NavLink>
+          </NavLink></Gate>
         </li>
         {/* <li>
           <NavLink to="/register/list" className={({ isActive }) => (isActive ? "active" : "")}>

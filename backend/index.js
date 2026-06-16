@@ -338,7 +338,7 @@ app.get("/visitors/stories/:slug", (req, res) => {
 
 app.get("/stories", (req, res) => {
 
-  if (!checkUserIsAuthorized(req.user, res, ['user', 'animal'])) {
+  if (!checkUserIsAuthorized(req.user, res, ['admin','user', 'animal'])) {
     return;
   }
 
