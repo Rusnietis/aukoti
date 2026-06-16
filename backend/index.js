@@ -6,6 +6,7 @@ const mysql = require('mysql');
 const fs = require('fs');
 const md5 = require('md5');
 const { v4: uuidv4 } = require('uuid');
+const path = require('path');
 const slugify = require('slugify');
 
 const connection = mysql.createConnection({
@@ -270,11 +271,6 @@ app.delete('/admin/stories/:id', (req, res) => {
 
 
 // routs
-
-app.get('/', (req, res) => {
-  console.log('Buvo uzklausta /');
-  res.send('Labas Bebrai')
-})
 
 // gauti statistika kiek yra surinkta pinigu, kiek yra istoriju patvirtinta ir kiek yra aukotoju
 app.get('/stats', (req, res) => {
@@ -586,6 +582,9 @@ app.put('/users/:id', (req, res) => {
   });
 });
 
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.listen(port, () => {
   console.log(`AUKOTOJU SERVERIS klauso ${port} porto.`);
