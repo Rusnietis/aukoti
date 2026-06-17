@@ -20,12 +20,19 @@ const app = express();
 
 const port = 80;
 
-app.use(cors(
-  {
-    origin: true,
-    credentials: true,
-  }
-));
+// app.use(cors({
+//   origin: true,
+//   credentials: true,
+// }));
+
+app.use(cors({
+  origin: [
+     'http://aukoti.lt',
+    'http://localhost:5173'
+  ],
+  credentials: true,
+}));
+
 // app.use(cors());
 app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }))
@@ -176,7 +183,7 @@ app.post('/login', (req, res) => {
           if (err) {
             res.status(500).json({ message: 'Server error On Login' });
           } else {
-            res.cookie('donateSession', token, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
+            res.cookie('donateSession', token, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true});
             res.json({
               success: true,
               name: results[0].name,
@@ -212,6 +219,11 @@ app.post('/logout', (req, res) => {
 // Admin panel
 
 app.get('/stories/status', (req, res) => {
+
+  if (!checkUserIsAuthorized(req.user, res, ['admin'])) {
+    return;
+  }
+
   const sql = `
     SELECT status, COUNT(*) as count
     FROM stories
@@ -227,6 +239,11 @@ app.get('/stories/status', (req, res) => {
 })
 
 app.get('/admin/stories', (req, res) => {
+
+  if (!checkUserIsAuthorized(req.user, res, ['admin'])) {
+    return;
+  }
+
   const sql = `
    SELECT s.id, s.title, s.status, s.story, s.image, w.name AS writerName, w.surname AS writerSurname
 FROM stories s
@@ -246,6 +263,11 @@ ORDER BY w.created_at DESC;
 app.put('/admin/stories/:id', (req, res) => {
   const { status } = req.body;
   console.log('status', status, 'id', req.params.id);
+
+  if (!checkUserIsAuthorized(req.user, res, ['admin'])) {
+    return;
+  }
+
   const sql = 'UPDATE stories SET status = ? WHERE id = ?';
   connection.query(sql, [status, req.params.id], (err, result) => {
     if (err) {
@@ -257,6 +279,11 @@ app.put('/admin/stories/:id', (req, res) => {
 });
 
 app.delete('/admin/stories/:id', (req, res) => {
+
+  if (!checkUserIsAuthorized(req.user, res, ['admin'])) {
+    return;
+  }
+
   const sql = 'DELETE FROM stories WHERE id = ?';
   connection.query(sql, [req.params.id], (err, result) => {
     if (err) {
@@ -274,7 +301,7 @@ app.delete('/admin/stories/:id', (req, res) => {
 
 // gauti statistika kiek yra surinkta pinigu, kiek yra istoriju patvirtinta ir kiek yra aukotoju
 app.get('/stats', (req, res) => {
-   
+
   const sql = `
    SELECT
     COUNT(DISTINCT s.id) AS patvirtintu_istoriju_kiekis,
