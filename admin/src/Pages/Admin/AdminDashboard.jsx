@@ -15,6 +15,16 @@ console.log(import.meta.env.VITE_SERVER_URL);
                 setStatus(res.data);
             })
             .catch(err => {
+               if (err?.response?.status === 401) {
+                    if (err.response.data.type === 'login') {
+                        navigate("/login");
+                    } else {
+                        navigate("/error/401");
+                    }
+                } else {
+                    navigate("/error/503");
+                    //navigate("/error/ups");
+                }
                 console.log(err);
             })
 

@@ -8,6 +8,7 @@ const md5 = require('md5');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const slugify = require('slugify');
+const { type } = require('os');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -20,18 +21,26 @@ const app = express();
 
 const port = 80;
 
-// app.use(cors({
-//   origin: true,
-//   credentials: true,
-// }));
+// app.use(cors(
+//   {
+//     origin: 'http://localhost:5173',
+//     credentials: true,
+//   }
+// ));
+
 
 app.use(cors({
-  origin: [
-     'http://aukoti.lt',
-    'http://localhost:5173'
-  ],
+  origin: true,
   credentials: true,
 }));
+
+// app.use(cors({
+//   origin: [
+//     'http://aukoti.lt',
+//     'http://admin.aukoti.lt:5173'
+//   ],
+//   credentials: true
+// }));
 
 // app.use(cors());
 app.use(cookieParser());
@@ -183,7 +192,7 @@ app.post('/login', (req, res) => {
           if (err) {
             res.status(500).json({ message: 'Server error On Login' });
           } else {
-            res.cookie('donateSession', token, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true});
+            res.cookie('donateSession', token, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
             res.json({
               success: true,
               name: results[0].name,
@@ -254,7 +263,9 @@ ORDER BY w.created_at DESC;
   connection.query(sql, (err, results) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ message: 'Klaida gaunant istorijas' });
+      return res.status(500).json({
+        message: { type: 'danger', text: 'Klaida gaunant istorijas' }
+      });
     }
     res.json(results);
   });
@@ -272,7 +283,9 @@ app.put('/admin/stories/:id', (req, res) => {
   connection.query(sql, [status, req.params.id], (err, result) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ message: 'Klaida atnaujinant statusą' });
+      return res.status(500).json({ 
+        message: {type: 'danger',text:'Klaida atnaujinant statusą' }
+      });
     }
     res.json({ success: true });
   });

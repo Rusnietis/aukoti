@@ -18,6 +18,16 @@ export default function AdminStories() {
                 setStories(res.data);
             })
             .catch(err => {
+                if (err?.response?.status === 401) {
+                    if (err.response.data.type === 'login') {
+                        navigate("/login");
+                    } else {
+                        navigate("/error/401");
+                    }
+                } else {
+                    //navigate("/error/503");
+                    navigate("/error/ups");
+                }
                 console.log(err);
             })
     }, []);
@@ -25,7 +35,7 @@ export default function AdminStories() {
     // Istorijos gavimas ir Pattvirtinimas arba atmetimas
 
     const handleStatusChange = (id, newStatus) => {
-        axios.put(`${SERVER_URL}/admin/stories/${id}`, { status: newStatus },{ withCredentials: true })
+        axios.put(`${SERVER_URL}/admin/stories/${id}`, { status: newStatus }, { withCredentials: true })
             .then(res => {
                 setStories(prev =>
                     prev.map(story =>
@@ -37,20 +47,40 @@ export default function AdminStories() {
                 );
             })
             .catch(err => {
-                console.error("Klaida keičiant statusą:", err);
+                if (err?.response?.status === 401) {
+                    if (err.response.data.type === 'login') {
+                        navigate("/login");
+                    } else {
+                        navigate("/error/401");
+                    }
+                } else {
+                    navigate("/error/503");
+                    //navigate("/error/ups");
+                }
+                console.log(err);
             });
     };
 
     // Istorijos ištrynimas
 
     const handleDeleteStory = (id) => {
-        axios.delete(`${SERVER_URL}/admin/stories/${id}`,{ withCredentials: true })
+        axios.delete(`${SERVER_URL}/admin/stories/${id}`, { withCredentials: true })
             .then(res => {
                 setStories(prev => prev.filter(story => story.id !== id));
                 setSelectedStory(null);
             })
             .catch(err => {
-                console.error("Klaida trinant istoriją:", err);
+               if (err?.response?.status === 401) {
+                    if (err.response.data.type === 'login') {
+                        navigate("/login");
+                    } else {
+                        navigate("/error/401");
+                    }
+                } else {
+                    navigate("/error/503");
+                    //navigate("/error/ups");
+                }
+                console.log(err);
             });
     };
 
@@ -63,58 +93,58 @@ export default function AdminStories() {
         <div className="admin-stories">
             <h1>Istorijos</h1>
             <div className="users-box">
-               
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Pavadinimas</th>
-                                <th>Autorius</th>
-                                <th>Statusas</th>
-                                <th>Veiksmai</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {stories.map((story) => (
-                                <tr key={story.id}>
-                                    <td>{story.title}</td>
-                                    <td>{story.surname}</td>
-                                    <td>
-                                        <span className={`status ${story.status}`}>
-                                            {story.status}
-                                        </span>
-                                    </td>
-                                    <td >
-                                        <button
-                                            className="view"
-                                            style={{ margin: '2px' }}
-                                            onClick={() => setSelectedStory(story)}
-                                        >
-                                            Peržiūrėti
-                                        </button>
 
-                                        {story.status === "pending" && (
-                                            <>
-                                                <button
-                                                    className="approve"
-                                                    onClick={() => handleStatusChange(story.id, "approved")}
-                                                >
-                                                    Patvirtinti
-                                                </button>
-                                                <button
-                                                    className="reject"
-                                                    style={{ margin: '2px' }}
-                                                    onClick={() => handleDeleteStory(story.id)}
-                                                >
-                                                    Ištrinti
-                                                </button>
-                                            </>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-             
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pavadinimas</th>
+                            <th>Autorius</th>
+                            <th>Statusas</th>
+                            <th>Veiksmai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {stories.map((story) => (
+                            <tr key={story.id}>
+                                <td>{story.title}</td>
+                                <td>{story.surname}</td>
+                                <td>
+                                    <span className={`status ${story.status}`}>
+                                        {story.status}
+                                    </span>
+                                </td>
+                                <td >
+                                    <button
+                                        className="view"
+                                        style={{ margin: '2px' }}
+                                        onClick={() => setSelectedStory(story)}
+                                    >
+                                        Peržiūrėti
+                                    </button>
+
+                                    {story.status === "pending" && (
+                                        <>
+                                            <button
+                                                className="approve"
+                                                onClick={() => handleStatusChange(story.id, "approved")}
+                                            >
+                                                Patvirtinti
+                                            </button>
+                                            <button
+                                                className="reject"
+                                                style={{ margin: '2px' }}
+                                                onClick={() => handleDeleteStory(story.id)}
+                                            >
+                                                Ištrinti
+                                            </button>
+                                        </>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
 
                 {/* 🔹 Modal langas */}
                 {selectedStory && (
