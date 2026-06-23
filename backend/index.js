@@ -283,8 +283,8 @@ app.put('/admin/stories/:id', (req, res) => {
   connection.query(sql, [status, req.params.id], (err, result) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ 
-        message: {type: 'danger',text:'Klaida atnaujinant statusą' }
+      return res.status(500).json({
+        message: { type: 'danger', text: 'Klaida atnaujinant statusą' }
       });
     }
     res.json({ success: true });

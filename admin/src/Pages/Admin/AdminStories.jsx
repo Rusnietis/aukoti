@@ -1,65 +1,53 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../Style/AdminStories.scss';
+import '../../Style/loader.scss';
 import { SERVER_URL } from '../../Config/config';
+import useAdminStories from '../../Hooks/useAdminStories';
 
 export default function AdminStories() {
-    const [stories, setStories] = useState([]);
+   
     const [selectedStory, setSelectedStory] = useState(null);
-    //   const [loading, setLoading] = useState(true);
-    //   const [error, setError] = useState(null);
 
-    // 🔹 Gauti istorijas iš backend
 
-    useEffect(_ => {
-        axios.get(`${SERVER_URL}/admin/stories`, { withCredentials: true })
-            .then(res => {
-                console.log(res.data)
-                setStories(res.data);
-            })
-            .catch(err => {
-                if (err?.response?.status === 401) {
-                    if (err.response.data.type === 'login') {
-                        navigate("/login");
-                    } else {
-                        navigate("/error/401");
-                    }
-                } else {
-                    //navigate("/error/503");
-                    navigate("/error/ups");
-                }
-                console.log(err);
-            })
-    }, []);
+    const {stories, setStories, loading} = useAdminStories();
+    const navigate = useNavigate();
 
-    // Istorijos gavimas ir Pattvirtinimas arba atmetimas
 
-    const handleStatusChange = (id, newStatus) => {
-        axios.put(`${SERVER_URL}/admin/stories/${id}`, { status: newStatus }, { withCredentials: true })
-            .then(res => {
-                setStories(prev =>
-                    prev.map(story =>
-                        story.id === id ? { ...story, status: newStatus } : story
-                    )
-                );
-                setSelectedStory(prev =>
-                    prev && prev.id === id ? { ...prev, status: newStatus } : prev
-                );
-            })
-            .catch(err => {
-                if (err?.response?.status === 401) {
-                    if (err.response.data.type === 'login') {
-                        navigate("/login");
-                    } else {
-                        navigate("/error/401");
-                    }
-                } else {
-                    navigate("/error/503");
-                    //navigate("/error/ups");
-                }
-                console.log(err);
-            });
-    };
+    // Istorijos perziura
+
+     
+
+
+
+
+    // const handleStatusChange = (id, newStatus) => {
+    //     axios.put(`${SERVER_URL}/admin/stories/${id}`, { status: newStatus }, { withCredentials: true })
+    //         .then(res => {
+    //             setStories(prev =>
+    //                 prev.map(story =>
+    //                     story.id === id ? { ...story, status: newStatus } : story
+    //                 )
+    //             );
+    //             setSelectedStory(prev =>
+    //                 prev && prev.id === id ? { ...prev, status: newStatus } : prev
+    //             );
+    //         })
+    //         .catch(err => {
+    //             if (err?.response?.status === 401) {
+    //                 if (err.response.data.type === 'login') {
+    //                     navigate("/login");
+    //                 } else {
+    //                     navigate("/error/401");
+    //                 }
+    //             } else {
+    //                 navigate("/error/503");
+    //                 //navigate("/error/ups");
+    //             }
+    //             console.log(err);
+    //         });
+    // };
 
     // Istorijos ištrynimas
 
@@ -84,11 +72,8 @@ export default function AdminStories() {
             });
     };
 
-
-
-    //if (loading) return <p>Kraunama...</p>;
-    //if (error) return <p style={{ color: "red" }}>{error}</p>;
-
+   if (loading) return (<div className="loader"><div></div></div>);
+    
     return (
         <div className="admin-stories">
             <h1>Istorijos</h1>
@@ -107,7 +92,7 @@ export default function AdminStories() {
                         {stories.map((story) => (
                             <tr key={story.id}>
                                 <td>{story.title}</td>
-                                <td>{story.surname}</td>
+                                <td>{story.writerName}</td>
                                 <td>
                                     <span className={`status ${story.status}`}>
                                         {story.status}

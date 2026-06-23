@@ -3,32 +3,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../Style/AdminDashboard.scss';
 import { SERVER_URL } from '../../Config/config';
-export default function AdminDashboard() {
-    const [status, setStatus] = useState([]);
-console.log(import.meta.env.VITE_SERVER_URL);
-    useEffect(() => {
-        // Čia bus API kvietimas į back-end
-        // Pvz. GET /api/stories/stats
-        axios.get(`${SERVER_URL}/stories/status`, { withCredentials: true })
-            .then(res => {
-                console.log(res.data)
-                setStatus(res.data);
-            })
-            .catch(err => {
-               if (err?.response?.status === 401) {
-                    if (err.response.data.type === 'login') {
-                        navigate("/login");
-                    } else {
-                        navigate("/error/401");
-                    }
-                } else {
-                    navigate("/error/503");
-                    //navigate("/error/ups");
-                }
-                console.log(err);
-            })
+import useAdminStories from '../../Hooks/useAdminStories';
 
-    }, []);
+
+export default function AdminDashboard() {
+
+    const { status } = useAdminStories();
+
 
     const pending = status.find(item => item.status === 'pending')?.count || 0;
     const approved = status.find(item => item.status === 'approved')?.count || 0;
@@ -38,43 +19,43 @@ console.log(import.meta.env.VITE_SERVER_URL);
 
         <div className="admin-dashboard">
             <h1 className="admin-dashboard__title">Administratoriaus valdymo skydas</h1>
-           <div className="users-box">
-            <div className="admin-dashboard__stats">
-                <div className="card pending">
-                    <h2>Laukiančios istorijos</h2>
-                    <p>{pending}</p>
+            <div className="users-box">
+                <div className="admin-dashboard__stats">
+                    <div className="card pending">
+                        <h2>Laukiančios istorijos</h2>
+                        <p>{pending}</p>
+                    </div>
+
+                    <div className="card approved">
+                        <h2>Patvirtintos istorijos</h2>
+                        <p>{approved}</p>
+                    </div>
+
+                    <div className="card rejected">
+                        <h2>Atmestos istorijos</h2>
+                        <p>{rejected}</p>
+                    </div>
                 </div>
 
-                <div className="card approved">
-                    <h2>Patvirtintos istorijos</h2>
-                    <p>{approved}</p>
+                <div className="btn">
+                    <Link to={'/admin/stories'} style={{
+                        backgroundColor: "#4CAF50",
+                        color: "white",
+                        padding: "10px 20px",
+                        borderRadius: "8px",
+                        textDecoration: "none",
+                        marginRight: '10px'
+                    }}>Peržiūrėti istorijas</Link>
+                    <Link to={'/admin/users/list'}
+                        style={{
+                            backgroundColor: "#cb1b1bff",
+                            color: "white",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            textDecoration: "none",
+                        }}
+                    >Valdyti vartotojus</Link>
                 </div>
-
-                <div className="card rejected">
-                    <h2>Atmestos istorijos</h2>
-                    <p>{rejected}</p>
-                </div>
-            </div>
-
-            <div className="btn">
-                <Link to={'/admin/stories'} style={{
-                    backgroundColor: "#4CAF50",
-                    color: "white",
-                    padding: "10px 20px",
-                    borderRadius: "8px",
-                    textDecoration: "none",
-                    marginRight: '10px'
-                }}>Peržiūrėti istorijas</Link>
-                <Link to={'/admin/users/list'}
-                style={{
-                    backgroundColor: "#cb1b1bff",
-                    color: "white",
-                    padding: "10px 20px",
-                    borderRadius: "8px",
-                    textDecoration: "none",
-                }}
-                >Valdyti vartotojus</Link>
-            </div>
             </div>
         </div>
     );
