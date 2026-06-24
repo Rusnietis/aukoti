@@ -13,6 +13,7 @@ export default function useAdminStories() {
 
     const [stories, setStories] = useState(null);
     const [status, setStatus] = useState([]);
+    const [selectedStory, setSelectedStory] = useState(null);
     // const [updateWriter, setUpdateWriter] = useState(null);
     // const [destroyWriter, setDestroyWriter] = useState(null);
     // const { setUser } = useContext(Auth);
@@ -39,14 +40,14 @@ export default function useAdminStories() {
     }, []);
 
     useEffect(() => {
-       
+
         axios.get(`${SERVER_URL}/stories/status`, { withCredentials: true })
             .then(res => {
                 console.log(res.data)
                 setStatus(res.data);
             })
             .catch(err => {
-               if (err?.response?.status === 401) {
+                if (err?.response?.status === 401) {
                     if (err.response.data.type === 'login') {
                         navigate("/login");
                     } else {
@@ -61,12 +62,14 @@ export default function useAdminStories() {
 
     }, []);
 
-
+   
 
     return {
         status,
         stories,
         setStories,
+        selectedStory,
+        setSelectedStory,
         loading
     };
 }

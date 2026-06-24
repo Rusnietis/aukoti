@@ -8,46 +8,37 @@ import useAdminStories from '../../Hooks/useAdminStories';
 
 export default function AdminStories() {
    
-    const [selectedStory, setSelectedStory] = useState(null);
-
-
-    const {stories, setStories, loading} = useAdminStories();
+    const {stories, setStories, selectedStory, setSelectedStory, loading} = useAdminStories();
     const navigate = useNavigate();
 
 
-    // Istorijos perziura
 
-     
-
-
-
-
-    // const handleStatusChange = (id, newStatus) => {
-    //     axios.put(`${SERVER_URL}/admin/stories/${id}`, { status: newStatus }, { withCredentials: true })
-    //         .then(res => {
-    //             setStories(prev =>
-    //                 prev.map(story =>
-    //                     story.id === id ? { ...story, status: newStatus } : story
-    //                 )
-    //             );
-    //             setSelectedStory(prev =>
-    //                 prev && prev.id === id ? { ...prev, status: newStatus } : prev
-    //             );
-    //         })
-    //         .catch(err => {
-    //             if (err?.response?.status === 401) {
-    //                 if (err.response.data.type === 'login') {
-    //                     navigate("/login");
-    //                 } else {
-    //                     navigate("/error/401");
-    //                 }
-    //             } else {
-    //                 navigate("/error/503");
-    //                 //navigate("/error/ups");
-    //             }
-    //             console.log(err);
-    //         });
-    // };
+    const handleStatusChange = (id, newStatus) => {
+        axios.put(`${SERVER_URL}/admin/stories/${id}`, { status: newStatus }, { withCredentials: true })
+            .then(res => {
+                setStories(prev =>
+                    prev.map(story =>
+                        story.id === id ? { ...story, status: newStatus } : story
+                    )
+                );
+                setSelectedStory(prev =>
+                    prev && prev.id === id ? { ...prev, status: newStatus } : prev
+                );
+            })
+            .catch(err => {
+                if (err?.response?.status === 401) {
+                    if (err.response.data.type === 'login') {
+                        navigate("/login");
+                    } else {
+                        navigate("/error/401");
+                    }
+                } else {
+                    navigate("/error/503");
+                    //navigate("/error/ups");
+                }
+                console.log(err);
+            });
+    };
 
     // Istorijos ištrynimas
 
