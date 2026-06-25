@@ -7,8 +7,8 @@ import { SERVER_URL } from '../../Config/config';
 import useAdminStories from '../../Hooks/useAdminStories';
 
 export default function AdminStories() {
-   
-    const {stories, setStories, selectedStory, setSelectedStory, loading} = useAdminStories();
+
+    const { stories, setStories, selectedStory, setSelectedStory, loading } = useAdminStories();
     const navigate = useNavigate();
 
 
@@ -63,8 +63,8 @@ export default function AdminStories() {
             });
     };
 
-   if (loading) return (<div className="loader"><div></div></div>);
-    
+    if (loading) return (<div className="loader"><div></div></div>);
+
     return (
         <div className="admin-stories">
             <h1>Istorijos</h1>

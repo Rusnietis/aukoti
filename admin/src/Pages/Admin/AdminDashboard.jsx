@@ -31,10 +31,10 @@ export default function AdminDashboard() {
                         <p>{approved}</p>
                     </div>
 
-                    <div className="card rejected">
-                        <h2>Atmestos istorijos</h2>
+                    {/* <div className="card rejected">
+                        <h2>Atmestos istorijos</h2> 
                         <p>{rejected}</p>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="btn">
