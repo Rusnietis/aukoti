@@ -51,7 +51,7 @@ export default function useAdminStories() {
                     if (err.response.data.type === 'login') {
                         navigate("/login");
                     } else {
-                        navigate("/error/401");
+                        navigate("/error/403");
                     }
                 } else {
                     navigate("/error/503");

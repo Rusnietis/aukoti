@@ -17,7 +17,6 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-
   const go = _ => {
     setInputs({ username, password });
     setPassword('');
@@ -26,7 +25,7 @@ export default function Login() {
   useEffect(_ => {
     if (user) {
       navigate('/apie');
-    }
+    } 
 
   }, [user])
 

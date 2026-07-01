@@ -48,7 +48,7 @@ export default function useLogin() {
                 window.localStorage.removeItem('role');
                 window.localStorage.removeItem('id');
                 setUser(null);
-                navigate(AFTER_LOGIN_URL)
+                navigate('/login')
                 // addMessage(res.data.message);
                 showToast(res.data.message)
             })
