@@ -210,10 +210,44 @@ app.post('/login', (req, res) => {
   });
 });
 
+// admin login
+
+app.post('/admin/login', (req, res) => {
+
+  const { username, password } = req.body;
+  const sql = 'SELECT * FROM users WHERE name = ? AND password = ? AND role = "admin"';
+  connection.query(sql, [username, md5(password)], (err, results) => {
+    if (err) {
+      res.status(500)
+    } else {
+      if (results.length > 0) {
+        const token = md5(uuidv4());
+        const sql = 'UPDATE users SET session = ? WHERE id = ?'
+        connection.query(sql, [token, results[0].id], (err) => {
+          if (err) {
+            res.status(500).json({ message : { type: 'error', text: 'Server error On Login' } });
+          }else {
+            res.cookie('donateSession', token, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
+            res.json({
+              success: true,
+              name: results[0].name,
+              role: results[0].role,
+              id: results[0].id,
+              message: { type: 'success', text: ` ${username} sekmingai prisijungete` }
+            });
+          }
+        });
+      }
+    }
+  })
+
+})
+
+
 //logout 
 
 app.post('/logout', (req, res) => {
-  const token = req.cookies.bankSession || '';
+  const token = req.cookies.donateSession || '';
   const sql = 'UPDATE users SET session = NULL WHERE session = ?';
   connection.query(sql, [token], (err) => {
     if (err) {
@@ -596,6 +630,10 @@ app.get('/users', (req, res) => {
 });
 
 app.delete('/users/:id', (req, res) => {
+
+  if (!checkUserIsAuthorized(req.user, res, ['admin'])) {
+    return;
+  }
 
   const sql = 'DELETE FROM users WHERE id = ?';
   connection.query(sql, [req.params.id], (err) => {

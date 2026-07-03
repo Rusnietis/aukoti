@@ -4,28 +4,22 @@ import axios from 'axios';
 import { AFTER_LOGIN_URL, } from '../Constants/main';
 import { SERVER_URL, SITE_URL } from '../Config/config';
 import { Auth } from '../Contexts/Auth';
-// import { MessagesContext } from '../Contexts/Messages';
 import { ToastContext } from '../Contexts/Toast';
 
 export default function useLogin() {
 
     const [inputs, setInputs] = useState(null);
-    //const [response, setResponse] = useState(null);
     const navigate = useNavigate();
 
     const { login, setUser } = useContext(Auth);
-    // const { addMessage } = useContext(MessagesContext)
     const { showToast } = useContext(ToastContext)
 
     useEffect(_ => {
         if (null !== inputs) {
-            axios.post(`${SERVER_URL}/login`, inputs, { withCredentials: true })
+            axios.post(`${SERVER_URL}/admin/login`, inputs, { withCredentials: true })
                 .then(res => {
-                    // window.localStorage.setItem('token', res.data.token);
-                    // window.localStorage.setItem('user', res.data.name);
                     login(res.data.name, res.data.role, res.data.id);
                     navigate(AFTER_LOGIN_URL)
-                    // addMessage(res.data.message);
                     showToast(res.data.message)
                     console.log(res.data)
 
